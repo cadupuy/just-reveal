@@ -7,6 +7,7 @@ import Loader from "@experience/Loader";
 import Time from "@utils/Time";
 
 import Sky from "@world/Sky";
+import Video from "@world/Video";
 
 export default class World {
   experience: Experience;
@@ -16,11 +17,8 @@ export default class World {
   loader: Loader;
   loaderDiv: HTMLDivElement;
   cursor: number;
-  buffer: number;
-  geometry: THREE.BoxGeometry;
-  material: THREE.MeshNormalMaterial;
   sky: Sky;
-  mesh: THREE.Mesh<THREE.BoxGeometry, THREE.MeshNormalMaterial>;
+  video: Video;
 
   constructor() {
     this.experience = new Experience();
@@ -30,8 +28,8 @@ export default class World {
     this.button = document.querySelector(".start") as HTMLButtonElement;
 
     this.button.addEventListener("click", () => {
-      this.setCube();
       this.setSky();
+      this.setVideo();
 
       gsap.to(this.loaderDiv, {
         opacity: 0,
@@ -43,20 +41,15 @@ export default class World {
     });
   }
 
-  setCube() {
-    this.geometry = new THREE.BoxGeometry(10, 10, 10, 10);
-    this.material = new THREE.MeshNormalMaterial();
-
-    this.mesh = new THREE.Mesh(this.geometry, this.material);
-
-    this.scene.add(this.mesh);
-  }
-
   setSky() {
     this.sky = new Sky();
   }
 
+  setVideo() {
+    this.video = new Video();
+  }
+
   update() {
-    // if (this.mesh) this.mesh.update();
+    if (this.video) this.video.update();
   }
 }

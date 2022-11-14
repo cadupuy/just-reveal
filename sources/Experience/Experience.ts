@@ -10,6 +10,7 @@ import Sizes from "@utils/Sizes";
 import Stats from "@utils/Stats";
 import Time from "@utils/Time";
 import Resources from "@utils/Resources";
+import Mouse from "@utils/Mouse";
 
 import World from "@world/World";
 
@@ -27,6 +28,7 @@ export default class Experience {
   stats: Stats;
   world: World;
   resources: Resources;
+  mouse: Mouse;
 
   constructor(_canvas?: HTMLCanvasElement) {
     // Singleton
@@ -47,6 +49,7 @@ export default class Experience {
     this.setStats();
     this.setSizes();
     this.setTime();
+    this.setMouse();
     this.setScene();
     this.setResources();
     this.setCamera();
@@ -67,6 +70,10 @@ export default class Experience {
 
   setLoader() {
     this.loader = new Loader();
+  }
+
+  setMouse() {
+    this.mouse = new Mouse();
   }
 
   setDebug() {
