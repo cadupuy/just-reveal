@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "baseUrl": ".",
+    "paths": {
+      "@experience/*": ["sources/Experience/*"],
+      "@shaders/*": ["sources/Experience/Shaders/*"],
+      "@utils/*": ["sources/Experience/Utils/*"],
+      "@world/*": ["sources/Experience/World/*"]
+    },
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true
+  },
+  "include": ["sources"]
+}
