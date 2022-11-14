@@ -68,57 +68,57 @@ export default class Experience {
     });
   }
 
-  setLoader() {
+  private setLoader() {
     this.loader = new Loader();
   }
 
-  setMouse() {
+  private setMouse() {
     this.mouse = new Mouse();
   }
 
-  setDebug() {
+  private setDebug() {
     this.debug = new Debug();
   }
 
-  setStats() {
+  private setStats() {
     this.stats = new Stats();
   }
 
-  setSizes() {
+  private setSizes() {
     this.sizes = new Sizes();
   }
 
-  setTime() {
+  private setTime() {
     this.time = new Time();
   }
 
-  setScene() {
+  private setScene() {
     this.scene = new Scene();
     this.scene.fog = new Fog(0x030229, 50, 101);
   }
 
-  setResources() {
+  private setResources() {
     this.resources = new Resources(sources);
   }
 
-  setCamera() {
+  private setCamera() {
     this.camera = new Camera();
   }
 
-  setRenderer() {
+  private setRenderer() {
     this.renderer = new Renderer();
   }
 
-  setWorld() {
+  private setWorld() {
     this.world = new World();
   }
 
-  resize() {
+  private resize() {
     this.camera.resize();
     this.renderer.resize();
   }
 
-  update() {
+  private update() {
     if (this.stats.active) this.stats.update();
 
     this.camera.update();
@@ -126,7 +126,7 @@ export default class Experience {
     this.renderer.update();
   }
 
-  destroy() {
+  public destroy() {
     this.sizes.off("resize");
     this.time.off("tick");
 
@@ -148,7 +148,6 @@ export default class Experience {
       }
     });
 
-    this.camera.controls.dispose();
     this.renderer.instance.dispose();
 
     if (this.debug.active) this.debug.ui.destroy();

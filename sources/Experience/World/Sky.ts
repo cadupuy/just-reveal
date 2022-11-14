@@ -13,7 +13,8 @@ export default class Sky {
   private renderer: Renderer;
   private debug: Debug;
   private debugFolder: GUI;
-  effectController: {
+
+  private effectController: {
     turbidity: number;
     rayleigh: number;
     mieCoefficient: number;
@@ -22,8 +23,8 @@ export default class Sky {
     azimuth: number;
     exposure: number;
   };
-  sky: ThreeSky;
-  sun: Vector3;
+  private sky: ThreeSky;
+  private sun: Vector3;
 
   constructor() {
     this.experience = new Experience();
@@ -40,7 +41,7 @@ export default class Sky {
     this.setUniforms();
   }
 
-  setSky() {
+  private setSky() {
     this.effectController = {
       turbidity: 0.2,
       rayleigh: 0.056,
@@ -76,7 +77,7 @@ export default class Sky {
     }
   }
 
-  setUniforms() {
+  private setUniforms() {
     const uniforms = this.sky.material.uniforms;
     uniforms["turbidity"].value = this.effectController.turbidity;
     uniforms["rayleigh"].value = this.effectController.rayleigh;

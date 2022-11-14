@@ -7,14 +7,13 @@ import {
   LinearToneMapping,
   ReinhardToneMapping,
   ACESFilmicToneMapping,
+  Vector2,
 } from "three";
 
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-// import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-// import { RGBShiftShader } from "three/examples/jsm/shaders/RGBShiftShader.js";
-// import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
-// import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
+
 import GUI from "lil-gui";
 
 import Experience from "@experience/Experience";
@@ -24,16 +23,17 @@ import Sizes from "@utils/Sizes";
 import Debug from "@utils/Debug";
 
 export default class Renderer {
-  experience: Experience;
-  instance: WebGLRenderer;
-  canvas: HTMLCanvasElement | undefined;
-  sizes: Sizes;
-  scene: THREE.Scene;
-  camera: Camera;
-  debug: Debug;
-  debugFolder: GUI;
-  effectComposer: EffectComposer;
-  renderPass: RenderPass;
+  private experience: Experience;
+  private canvas: HTMLCanvasElement | undefined;
+  private sizes: Sizes;
+  private scene: THREE.Scene;
+  private camera: Camera;
+  private debug: Debug;
+  private debugFolder: GUI;
+  private effectComposer: EffectComposer;
+  private renderPass: RenderPass;
+
+  public instance: WebGLRenderer;
 
   constructor() {
     this.experience = new Experience();
@@ -52,7 +52,7 @@ export default class Renderer {
     this.setPostprocessing();
   }
 
-  setInstance() {
+  private setInstance() {
     this.instance = new WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
@@ -88,7 +88,7 @@ export default class Renderer {
     }
   }
 
-  setPostprocessing() {
+  private setPostprocessing() {
     this.effectComposer = new EffectComposer(this.instance);
     this.effectComposer.setSize(this.sizes.width, this.sizes.height);
     this.effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -96,39 +96,31 @@ export default class Renderer {
     this.renderPass = new RenderPass(this.scene, this.camera.instance);
     this.effectComposer.addPass(this.renderPass);
 
-    // const rgbShiftPass = new ShaderPass(RGBShiftShader);
-    // rgbShiftPass.uniforms["amount"].value = 0.002;
-    // this.effectComposer.addPass(rgbShiftPass);
+    const bloomParams = {
+      strength: 0.25,
+      radius: 0.4,
+      threshold: 0.85,
+    };
 
-    // const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
-    // // this.effectComposer.addPass(gammaCorrectionPass);
+    const bloomPass = new UnrealBloomPass(
+      new Vector2(this.sizes.width, this.sizes.height),
+      bloomParams.strength,
+      bloomParams.radius,
+      bloomParams.threshold
+    );
+    this.effectComposer.addPass(bloomPass);
 
-    // const bloomParams = {
-    //   strength: 0.25,
-    // };
-
-    // const bloomPass = new UnrealBloomPass();
-    // bloomPass.strength = bloomParams.strength;
-    // this.effectComposer.addPass(bloomPass);
-
-    // if (this.debug.active) {
-    //   this.debugFolder
-    //     .add(rgbShiftPass.uniforms["amount"], "value")
-    //     .min(0)
-    //     .max(0.01)
-    //     .step(0.00001)
-    //     .name("RGBShift intensity");
-
-    //   this.debugFolder
-    //     .add(bloomParams, "strength", 0.0, 3.0)
-    //     .onChange((value: string) => {
-    //       bloomPass.strength = Number(value);
-    //     })
-    //     .name("Bloom Strength");
-    // }
+    if (this.debug.active) {
+      this.debugFolder
+        .add(bloomParams, "strength", 0.0, 3.0)
+        .onChange((value: string) => {
+          bloomPass.strength = Number(value);
+        })
+        .name("Bloom Strength");
+    }
   }
 
-  resize() {
+  public resize() {
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
 
@@ -137,8 +129,8 @@ export default class Renderer {
     this.effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
 
-  update() {
-    this.instance.render(this.scene, this.camera.instance);
-    // this.effectComposer.render();
+  public update() {
+    // this.instance.render(this.scene, this.camera.instance);
+    this.effectComposer.render();
   }
 }

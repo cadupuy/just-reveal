@@ -14,7 +14,7 @@ export default class Stats {
     }
   }
 
-  update() {
+  public update() {
     this.instance.update();
   }
 }

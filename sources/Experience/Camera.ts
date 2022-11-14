@@ -1,5 +1,4 @@
 import { PerspectiveCamera } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import GUI from "lil-gui";
 
 import Experience from "@experience/Experience";
@@ -9,21 +8,19 @@ import Sizes from "@utils/Sizes";
 import Mouse from "@utils/Mouse";
 
 export default class Camera {
-  instance: THREE.PerspectiveCamera;
-  experience: Experience;
-  scene: THREE.Scene;
-  controls: OrbitControls;
-  canvas: HTMLCanvasElement | undefined;
-  debug: Debug;
-  debugFolder: GUI;
-  sizes: Sizes;
-  mouse: Mouse;
+  public instance: THREE.PerspectiveCamera;
+
+  private experience: Experience;
+  private scene: THREE.Scene;
+  private debug: Debug;
+  private debugFolder: GUI;
+  private sizes: Sizes;
+  private mouse: Mouse;
 
   constructor() {
     this.experience = new Experience();
     this.sizes = this.experience.sizes;
     this.scene = this.experience.scene;
-    this.canvas = this.experience.canvas;
     this.debug = this.experience.debug;
     this.mouse = this.experience.mouse;
 

@@ -11,8 +11,8 @@ export default class Mouse {
 
   private experience: Experience;
   private sizes: Sizes;
-  private readonly debug: Debug;
-  private readonly debugFolder: GUI;
+  private debug: Debug;
+  private debugFolder: GUI;
 
   constructor() {
     this.experience = new Experience();
