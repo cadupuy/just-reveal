@@ -62,7 +62,7 @@ export default class Renderer {
     this.instance.outputEncoding = sRGBEncoding;
     this.instance.toneMapping = CineonToneMapping;
     this.instance.toneMappingExposure = 0.25;
-    this.instance.setClearColor("#010101", 1);
+    this.instance.setClearColor("#555555", 1);
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
 
@@ -97,7 +97,7 @@ export default class Renderer {
     this.effectComposer.addPass(this.renderPass);
 
     const bloomParams = {
-      strength: 0.25,
+      strength: 0,
       radius: 0.4,
       threshold: 0.85,
     };

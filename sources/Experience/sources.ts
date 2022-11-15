@@ -1,4 +1,4 @@
-export default [
+export const chapter_1 = [
   {
     name: "environmentMapTexture",
     type: "cubeTexture",
@@ -13,19 +13,50 @@ export default [
   },
 
   {
-    name: "matcap",
-    type: "texture",
-    path: "textures/matcap-metal.jpg",
+    name: "desk",
+    type: "gltfModel",
+    path: "models/desktop/desk.glb",
   },
+];
+
+export const chapter_2 = [
   {
-    name: "particleTexture",
-    type: "texture",
-    path: "textures/particles/3.png",
+    name: "environmentMapTexture",
+    type: "cubeTexture",
+    path: [
+      "textures/environmentMap/px.png",
+      "textures/environmentMap/nx.png",
+      "textures/environmentMap/py.png",
+      "textures/environmentMap/ny.png",
+      "textures/environmentMap/pz.png",
+      "textures/environmentMap/nz.png",
+    ],
   },
 
   {
-    name: "car",
+    name: "desk",
     type: "gltfModel",
-    path: "models/car/scene.gltf",
+    path: "models/desktop/desk.glb",
+  },
+];
+
+export const chapter_3 = [
+  {
+    name: "environmentMapTexture",
+    type: "cubeTexture",
+    path: [
+      "textures/environmentMap/px.png",
+      "textures/environmentMap/nx.png",
+      "textures/environmentMap/py.png",
+      "textures/environmentMap/ny.png",
+      "textures/environmentMap/pz.png",
+      "textures/environmentMap/nz.png",
+    ],
+  },
+
+  {
+    name: "desk",
+    type: "gltfModel",
+    path: "models/desktop/desk.glb",
   },
 ];

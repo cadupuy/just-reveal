@@ -32,7 +32,7 @@ export default class Video {
 
     var movieGeometry = new THREE.PlaneGeometry(20, 10, 20, 20);
     var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
-    movieScreen.position.set(0, 0, 0);
+    movieScreen.position.set(0, 10, 0);
     this.scene.add(movieScreen);
   }
 

@@ -6,7 +6,8 @@ import Loader from "@experience/Loader";
 
 import Sky from "@world/Sky";
 import Video from "@world/Video";
-import Cube from "./Cube";
+import Room from "@world/Room";
+import Environment from "@world/Environment";
 
 export default class World {
   private experience: Experience;
@@ -15,18 +16,22 @@ export default class World {
   private loaderDiv: HTMLDivElement;
   private video: Video;
   public sky: Sky;
-  public cube: Cube;
+  public room: Room;
+  public environment: Environment;
 
   constructor() {
     this.experience = new Experience();
     this.loader = this.experience.loader;
+    this.resources = this.experience.resources;
     this.loaderDiv = document.querySelector(".loader") as HTMLDivElement;
     this.button = document.querySelector(".start") as HTMLButtonElement;
 
     this.button.addEventListener("click", () => {
-      this.setSky();
+      // this.setSky();
       this.setVideo();
-      this.setCube();
+      this.setRoom();
+      this.setEnvironment();
+      this.setSky();
 
       gsap.to(this.loaderDiv, {
         opacity: 0,
@@ -38,16 +43,20 @@ export default class World {
     });
   }
 
-  private setSky() {
-    this.sky = new Sky();
-  }
-
   private setVideo() {
     this.video = new Video();
   }
 
-  private setCube() {
-    this.cube = new Cube();
+  private setEnvironment() {
+    this.environment = new Environment();
+  }
+
+  private setSky() {
+    this.sky = new Sky();
+  }
+
+  private setRoom() {
+    this.room = new Room();
   }
 
   public update() {

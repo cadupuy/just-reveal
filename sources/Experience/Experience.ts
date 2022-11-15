@@ -1,9 +1,10 @@
-import { Scene, Mesh, Fog } from "three";
+import { Scene, Mesh } from "three";
 
 import Camera from "@experience/Camera";
 import Renderer from "@experience/Renderer";
 import Loader from "@experience/Loader";
-import sources from "@experience/sources";
+import { chapter_1 } from "@experience/sources";
+import Raycast from "@experience/Raycaster";
 
 import Debug from "@utils/Debug";
 import Sizes from "@utils/Sizes";
@@ -11,6 +12,7 @@ import Stats from "@utils/Stats";
 import Time from "@utils/Time";
 import Resources from "@utils/Resources";
 import Mouse from "@utils/Mouse";
+import Parallax from "@utils/Parallax";
 
 import World from "@world/World";
 
@@ -29,6 +31,10 @@ export default class Experience {
   world: World;
   resources: Resources;
   mouse: Mouse;
+  raycast: Raycast;
+  parallax: Parallax;
+  items: THREE.Mesh[];
+  selectedItem: THREE.Mesh | null;
 
   constructor(_canvas?: HTMLCanvasElement) {
     // Singleton
@@ -43,16 +49,20 @@ export default class Experience {
 
     // Options
     this.canvas = _canvas;
+    this.items = [];
+    this.selectedItem = null;
 
     // Setup
     this.setDebug();
     this.setStats();
     this.setSizes();
     this.setTime();
+    this.setParallax();
     this.setMouse();
     this.setScene();
     this.setResources();
     this.setCamera();
+    this.setRaycaster();
     this.setRenderer();
     this.setLoader();
     this.setWorld();
@@ -72,12 +82,20 @@ export default class Experience {
     this.loader = new Loader();
   }
 
+  private setParallax() {
+    this.parallax = new Parallax();
+  }
+
   private setMouse() {
     this.mouse = new Mouse();
   }
 
   private setDebug() {
     this.debug = new Debug();
+  }
+
+  private setRaycaster() {
+    this.raycast = new Raycast();
   }
 
   private setStats() {
@@ -94,11 +112,11 @@ export default class Experience {
 
   private setScene() {
     this.scene = new Scene();
-    this.scene.fog = new Fog(0x030229, 50, 101);
+    // this.scene.fog = new Fog(0x030229, 50, 101);
   }
 
   private setResources() {
-    this.resources = new Resources(sources);
+    this.resources = new Resources(chapter_1);
   }
 
   private setCamera() {
@@ -120,8 +138,8 @@ export default class Experience {
 
   private update() {
     if (this.stats.active) this.stats.update();
-
     this.camera.update();
+    this.raycast.update();
     this.world.update();
     this.renderer.update();
   }
