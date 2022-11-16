@@ -27,7 +27,7 @@ export const chapter_1 = [
   {
     name: "desk2",
     type: "gltfModel",
-    path: "models/desk2/desk2.glb",
+    path: "models/desk2/desk2020.glb",
   },
 ];
 
@@ -46,9 +46,9 @@ export const chapter_2 = [
   },
 
   {
-    name: "desk",
+    name: "desk2",
     type: "gltfModel",
-    path: "models/desktop/desk.glb",
+    path: "models/desk2/desk2021.glb",
   },
 ];
 

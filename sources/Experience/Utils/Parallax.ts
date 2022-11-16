@@ -7,7 +7,7 @@ import Debug from "@utils/Debug";
 
 export default class Parallax {
   public instance: { x: number; y: number };
-  public readonly params: { active: boolean; intensity: number; ease: number };
+  public params: { active: boolean; intensity: number; ease: number };
 
   private experience: Experience;
   private sizes: Sizes;

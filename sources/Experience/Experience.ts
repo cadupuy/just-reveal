@@ -1,5 +1,5 @@
 import { Scene } from "three";
-import gsap from "gsap";
+
 import Camera from "@experience/Camera";
 import Renderer from "@experience/Renderer";
 import Loader from "@experience/Loader";
@@ -15,6 +15,7 @@ import Mouse from "@utils/Mouse";
 import Parallax from "@utils/Parallax";
 
 import World from "@world/World";
+import Sound from "./Sound";
 
 export default class Experience {
   private static instance: Experience;
@@ -37,6 +38,8 @@ export default class Experience {
   selectedItem: boolean;
   level: number;
   isLoading: boolean;
+  audio: Sound;
+  isSoundActive: boolean;
 
   constructor(_canvas?: HTMLCanvasElement) {
     // Singleton
@@ -55,10 +58,12 @@ export default class Experience {
     this.level = 1;
     this.isLoading = true;
     this.selectedItem = false;
+    this.isSoundActive = true;
 
     // Setup
     this.setDebug();
     this.setStats();
+    this.setAudio();
     this.setSizes();
     this.setTime();
     this.setParallax();
@@ -92,6 +97,10 @@ export default class Experience {
 
   private setMouse() {
     this.mouse = new Mouse();
+  }
+
+  private setAudio() {
+    this.audio = new Sound("/assets/music.mp3");
   }
 
   private setDebug() {
@@ -149,8 +158,10 @@ export default class Experience {
   }
 
   public async switchLevel() {
-    console.log("titi");
+    console.log("switch level");
     this.level++;
+
+    this.destroy();
 
     if (this.level === 1) {
       this.loader.animEnter();
@@ -170,11 +181,11 @@ export default class Experience {
       this.loader.animExit();
     }
 
-    if (this.level === 4) {
-      gsap.to(this.loader.overlayMaterial.uniforms.uAlpha, { duration: 3, value: 1, delay: 1 });
-      this.destroy();
-      this.level = 1;
-    }
+    // if (this.level === 4) {
+    //   gsap.to(this.loader.overlayMaterial.uniforms.uAlpha, { duration: 3, value: 1, delay: 1 });
+    //   this.destroy();
+    //   this.level = 1;
+    // }
   }
 
   public destroy() {

@@ -6,6 +6,7 @@ import Camera from "@experience/Camera";
 import Parallax from "@experience/Utils/Parallax";
 
 import Video from "@world/Video";
+import Cube from "@world/Cube";
 
 export default class Room {
   private experience: Experience;
@@ -26,7 +27,9 @@ export default class Room {
   videoTexture: THREE.VideoTexture;
   screen: THREE.Mesh | null;
 
-  constructor() {
+  cube: Cube;
+
+  constructor(cube: Cube) {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
@@ -37,7 +40,8 @@ export default class Room {
     this.parallax = this.experience.parallax;
     this.bodyElem = document.querySelector("html,body") as HTMLElement;
     this.video = new Video();
-
+    this.audio = this.experience.audio;
+    this.cube = cube;
     this.screen;
 
     this.setRoom();
@@ -45,6 +49,8 @@ export default class Room {
 
   private setRoom() {
     this.model = this.resource.scene;
+
+    console.log(this.model);
 
     this.model.traverse((child: THREE.Mesh) => {
       if (child.name == "socle_globe") {
@@ -61,6 +67,10 @@ export default class Room {
       if (child.name == "lampe") {
         this.items.push(child);
       }
+
+      if (child.name == "cactus") {
+        this.items.push(child);
+      }
     });
 
     this.model.scale.set(3, 3, 3);
@@ -71,39 +81,78 @@ export default class Room {
   public handleClick(el: THREE.Mesh) {
     // this.experience.parallax.params.active = false;
 
-    console.log(el.name);
-
-    if (el.name.includes("socle_globe")) this.handleCube();
+    if (el.name.includes("Globe") || el.name.includes("socle_globe")) this.handleGlobe(el);
     if (el.name.includes("ecran_video")) this.handleScreen(el);
-    if (el.name.includes("lampe")) this.handleMouse();
+    if (el.name.includes("lampe")) this.handleLampe(el);
+    if (el.name.includes("cactus")) this.handleAudio();
   }
 
-  private handleScreen(el: THREE.Mesh) {
-    this.camera.instance.lookAt(0, 7, 0);
-    gsap.to(this.camera.instance.position, {
-      duration: 2,
-      z: el.position.z,
-    });
-  }
-
-  private handleMouse() {
-    this.experience.switchLevel();
-  }
-
-  private handleCube() {
-    console.log("yes");
-
+  private handleScreen() {
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
 
+    if (this.experience.isSoundActive) {
+      this.audio.pause();
+    }
+
+    gsap.to(this.cube.mesh.position, {
+      x: -0.15,
+      y: 3.5,
+      z: -0.6,
+      duration: 0.8,
+      ease: "power4.easeIn",
+    });
+
     gsap.to(this.camera.instance.position, {
-      z: 20,
       duration: 1,
-      ease: "power3.easeOut",
+      x: this.cube.mesh.position.x,
+      y: this.cube.mesh.position.y + 1,
+      z: this.cube.mesh.position.z + 3,
+      ease: "power4.easeIn",
+
       onComplete: () => {
-        this.experience.isLoading = true;
+        this.parallax.params.intensity = 0.001;
         this.parallax.params.active = true;
       },
+    });
+  }
+
+  private handleAudio() {
+    if (!this.experience.isSoundActive) {
+      this.audio.play();
+      this.experience.isSoundActive = true;
+    } else {
+      this.audio.pause();
+      this.experience.isSoundActive = false;
+    }
+  }
+
+  private handleLampe() {
+    this.experience.switchLevel();
+  }
+
+  private handleGlobe() {
+    this.parallax.params.active = false;
+    this.experience.selectedItem = true;
+
+    gsap.to(this.cube.mesh.position, {
+      x: -2.17,
+      y: 3,
+      z: -0.33,
+      duration: 2,
+      ease: "power4.easeIn",
+      onComplete: () => {
+        // this.parallax.params.intensity = 0.001;
+        // this.parallax.params.active = true;
+      },
+    });
+
+    gsap.to(this.camera.instance.position, {
+      duration: 1.5,
+      x: this.cube.mesh.position.x,
+      y: this.cube.mesh.position.y + 1,
+      z: this.cube.mesh.position.z + 1,
+      ease: "power4.easeIn",
     });
   }
 }

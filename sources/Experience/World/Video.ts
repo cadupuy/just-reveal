@@ -14,6 +14,7 @@ export default class Video {
     this.video = document.querySelector("#video") as HTMLVideoElement;
 
     this.video.play();
+
     this.videoTexture = new THREE.VideoTexture(this.video);
 
     this.videoTexture.minFilter = THREE.LinearFilter;

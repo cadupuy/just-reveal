@@ -43,11 +43,11 @@ export default class Sky {
 
   private setSky() {
     this.effectController = {
-      turbidity: 0.2,
-      rayleigh: 0.056,
-      mieCoefficient: 0.015,
-      mieDirectionalG: 0.945,
-      elevation: 4.6,
+      turbidity: 0,
+      rayleigh: 0.138,
+      mieCoefficient: 0.0,
+      mieDirectionalG: 0,
+      elevation: 0,
       azimuth: -180,
       exposure: this.renderer.instance.toneMappingExposure,
     };

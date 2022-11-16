@@ -20,7 +20,7 @@ export default class Camera {
   private sizes: Sizes;
   private parallax: Parallax;
   public controls: OrbitControls;
-  private canvas: HTMLElement | undefined;
+  public canvas: HTMLElement | undefined;
   params: { x: number; y: number; z: number };
 
   constructor() {
@@ -90,36 +90,27 @@ export default class Camera {
   }
 
   public initialPosition() {
-    this.experience.parallax.params.active = false;
-    gsap.fromTo(
-      this.instance.position,
-      {
-        x: this.instance.position.x,
-        y: this.instance.position.y,
-        z: this.instance.position.z,
-        onComplete: () => {
-          this.experience.parallax.params.active = true;
-          this.experience.selectedItem = false;
-        },
+    gsap.to(this.instance.position, {
+      x: this.params.x,
+      y: this.params.y,
+      z: 7.5,
+      duration: 2,
+      ease: "expo.easeOut",
+
+      onComplete: () => {
+        this.parallax.params = {
+          active: true,
+          intensity: 0.004,
+          ease: 0.019,
+        };
+        this.experience.selectedItem = false;
       },
-      {
-        x: this.params.x,
-        y: this.params.y,
-        z: this.params.y,
-        duration: 2,
-        ease: "expo.easeOut",
-      }
-    );
+    });
   }
 
   public update() {
-    this.instance.lookAt(0, 2.5, 0);
-
     if (this.parallax.params.active) {
       this.instance.position.x += (this.parallax.instance.x - this.instance.position.x) * this.parallax.params.ease;
-      // this.instance.position.y += (this.parallax.instance.y - this.instance.position.y) * this.parallax.params.ease;
-      // this.instance.position.z += (65 - this.instance.position.z) * this.parallax.params.ease;
-      this.instance.lookAt(0, 2.5, 0);
     }
   }
 }

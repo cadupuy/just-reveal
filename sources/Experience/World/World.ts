@@ -9,8 +9,10 @@ import Room from "@world/Room";
 import Environment from "@world/Environment";
 import Cube from "@world/Cube";
 import Camera from "@experience/Camera";
-import Parallax from "@experience/Utils/Parallax";
+import Parallax from "@utils/Parallax";
 import Sky from "@world/Sky";
+import Resources from "@utils/Resources";
+import Sound from "@experience/Sound";
 
 export default class World {
   private experience: Experience;
@@ -24,21 +26,34 @@ export default class World {
   public camera: Camera;
   public parallax: Parallax;
   public sky: Sky;
+  resources: Resources;
+  audio: Sound;
 
   constructor() {
     this.experience = new Experience();
     this.loader = this.experience.loader;
     this.camera = this.experience.camera;
     this.parallax = this.experience.parallax;
+    this.resources = this.experience.resources;
+    this.audio = this.experience.audio;
 
     this.loaderDiv = document.querySelector(".loader") as HTMLDivElement;
     this.button = document.querySelector(".start") as HTMLButtonElement;
 
+    // Wait for resources
+    this.resources.on("ready", () => {
+      // Setup
+      console.log("jesus");
+    });
+
     this.button.addEventListener("click", () => {
+      this.setCube();
       this.setRoom();
       this.setSky();
-      this.setCube();
       this.setEnvironment();
+
+      this.audio.init();
+      this.audio.play();
 
       gsap.to(this.loaderDiv, {
         opacity: 0,
@@ -63,16 +78,17 @@ export default class World {
       tl.fromTo(
         this.camera.instance.position,
         {
-          x: this.room.screen!.position.x,
-          y: this.room.screen!.position.y,
-          z: this.room.screen!.position.z,
+          x: this.cube.mesh.position.x,
+          y: this.cube.mesh.position.y,
+          z: this.cube.mesh.position.z,
         },
         {
           duration: 3,
           x: this.camera.params.x,
           y: this.camera.params.y,
           z: this.camera.params.z,
-        }
+        },
+        "<-0.7"
       );
     });
   }
@@ -90,11 +106,11 @@ export default class World {
   }
 
   private setRoom() {
-    this.room = new Room();
+    this.room = new Room(this.cube);
   }
 
   public update() {
     if (this.video) this.video.update();
-    // if (this.cube) this.cube.update();
+    if (this.cube) this.camera.instance.lookAt(this.cube.mesh.position);
   }
 }
