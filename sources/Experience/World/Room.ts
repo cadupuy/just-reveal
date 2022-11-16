@@ -93,6 +93,8 @@ export default class Room {
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
 
+    this.video.videoElem.play();
+
     if (this.experience.isSoundActive) {
       this.audio.pause();
     }

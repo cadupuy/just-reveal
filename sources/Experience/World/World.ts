@@ -66,26 +66,38 @@ export default class World {
         },
       });
 
-      tl.to(this.loader.overlayMaterial.uniforms.uColor, { duration: 1.5, value: 1, delay: 0.2, ease: "expo.easeOut" });
-      tl.to(
-        this.loader.overlayMaterial.uniforms.uAlpha,
-        { duration: 1.5, value: 0, delay: 1.5, ease: "expo.easeOut" },
-        "<-0.2"
-      );
+      tl.to(this.loader.overlayMaterial.uniforms.uAlpha, {
+        duration: 1.5,
+        value: 0,
+        delay: 0.75,
+        ease: "expo.easeOut",
+      });
+
       tl.fromTo(
         this.camera.instance.position,
         {
-          x: this.cube.mesh.position.x,
-          y: this.cube.mesh.position.y,
-          z: this.cube.mesh.position.z,
+          x: -0.15,
+          y: 3.5,
+          z: -0.6,
         },
         {
           duration: 3,
           x: this.camera.params.x,
           y: this.camera.params.y,
           z: this.camera.params.z,
+          ease: "power3.easeIn",
         },
-        "<-0.7"
+        "<-0.25"
+      );
+
+      tl.to(
+        this.cube.mesh.position,
+        {
+          y: this.cube.params.y,
+          duration: 3,
+          ease: "expo.easeOut",
+        },
+        ">-3"
       );
     });
   }

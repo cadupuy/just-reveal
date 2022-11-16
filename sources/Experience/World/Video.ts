@@ -1,21 +1,21 @@
 import * as THREE from "three";
 
 export default class Video {
-  private video: HTMLVideoElement;
-  private videoTexture: THREE.Texture;
-  movieScreen: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
-  movieMaterial: THREE.MeshBasicMaterial;
+  public videoTexture: THREE.Texture;
+  public videoElem: HTMLVideoElement;
+  public movieScreen: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
+  public movieMaterial: THREE.MeshBasicMaterial;
 
   constructor() {
     this.setVideo();
   }
 
   private setVideo() {
-    this.video = document.querySelector("#video") as HTMLVideoElement;
+    this.videoElem = document.querySelector("#video") as HTMLVideoElement;
 
-    this.video.play();
+    // this.video.play();
 
-    this.videoTexture = new THREE.VideoTexture(this.video);
+    this.videoTexture = new THREE.VideoTexture(this.videoElem);
 
     this.videoTexture.minFilter = THREE.LinearFilter;
     this.videoTexture.magFilter = THREE.LinearFilter;

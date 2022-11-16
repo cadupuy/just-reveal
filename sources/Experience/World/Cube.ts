@@ -44,11 +44,17 @@ export default class Cube {
 
   setCube() {
     this.geometry = new THREE.BoxGeometry(1, 1, 1, 1);
-    this.material = new THREE.MeshBasicMaterial({ color: "red", wireframe: true });
+
+    if (this.debug.active) {
+      this.material = new THREE.MeshBasicMaterial({ color: "red", wireframe: true });
+    } else {
+      this.material = new THREE.MeshBasicMaterial({ visible: false });
+    }
+
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.scene.add(this.mesh);
     this.mesh.position.x = this.params.x;
-    this.mesh.position.y = this.params.y;
+    this.mesh.position.y = 3.5;
     this.mesh.position.z = this.params.z;
 
     if (this.debug.active) {

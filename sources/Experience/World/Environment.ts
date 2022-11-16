@@ -1,30 +1,22 @@
-import {
-  DirectionalLight,
-  DirectionalLightHelper,
-  // sRGBEncoding,
-  // Mesh,
-  // MeshStandardMaterial,
-  AmbientLight,
-} from "three";
+import { DirectionalLight, DirectionalLightHelper, AmbientLight } from "three";
 import GUI from "lil-gui";
 
 import Experience from "@experience/Experience.js";
 import Debug from "@experience/Utils/Debug";
 
 export default class Environment {
-  experience: Experience;
-  scene: THREE.Scene;
-  resources: any;
-  debug: Debug;
-  debugFolder: GUI;
-  sunLight: DirectionalLight;
-  helper: DirectionalLightHelper;
-  ambientLight: AmbientLight;
+  private experience: Experience;
+  private scene: THREE.Scene;
+  private debug: Debug;
+  private debugFolder: GUI;
+
+  public sunLight: DirectionalLight;
+  public ambientLight: AmbientLight;
+  public helper: DirectionalLightHelper;
 
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
-    this.resources = this.experience.resources;
     this.debug = this.experience.debug;
 
     // Debug
@@ -33,7 +25,6 @@ export default class Environment {
     }
 
     this.setSunLight();
-    // this.setEnvironmentMap();
   }
 
   setSunLight() {
@@ -45,8 +36,6 @@ export default class Environment {
     this.scene.add(this.sunLight);
 
     if (this.debug.active) {
-      this.helper = new DirectionalLightHelper(this.sunLight, 40);
-      // this.scene.add(this.helper);
       this.debugFolder.add(this.sunLight, "intensity").name("sunLightIntensity").min(0).max(50).step(0.001);
       this.debugFolder.add(this.sunLight.position, "x").name("sunLightX").min(-50).max(50).step(0.001);
       this.debugFolder.add(this.sunLight.position, "y").name("sunLightY").min(-50).max(50).step(0.001);
