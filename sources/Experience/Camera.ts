@@ -1,5 +1,6 @@
 import { PerspectiveCamera } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import gsap from "gsap";
 
 import GUI from "lil-gui";
 
@@ -20,6 +21,7 @@ export default class Camera {
   private parallax: Parallax;
   public controls: OrbitControls;
   private canvas: HTMLElement | undefined;
+  params: { x: number; y: number; z: number };
 
   constructor() {
     this.experience = new Experience();
@@ -28,24 +30,35 @@ export default class Camera {
     this.canvas = this.experience.canvas;
     this.debug = this.experience.debug;
     this.parallax = this.experience.parallax;
+    this.params = {
+      x: 0,
+      y: 4.57,
+      z: 7.5,
+    };
 
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("camera");
     }
 
     this.setInstance();
-    // this.setControls();
   }
 
   private setInstance() {
-    this.instance = new PerspectiveCamera(50, this.sizes.width / this.sizes.height, 1, 500);
-    this.instance.position.set(0, 12, 65);
+    this.instance = new PerspectiveCamera(45, this.sizes.width / this.sizes.height, 0.1, 150);
+    this.instance.position.set(0, 3, 0);
+
     this.scene.add(this.instance);
 
     if (this.debug.active) {
-      this.debugFolder.add(this.instance.position, "x").min(-500).max(500).step(0.01);
-      this.debugFolder.add(this.instance.position, "y").min(-500).max(500).step(0.01);
-      this.debugFolder.add(this.instance.position, "z").min(-500).max(500).step(0.01);
+      //position
+      this.debugFolder.add(this.instance.position, "x").name("posx").min(0).max(15).step(0.01);
+      this.debugFolder.add(this.instance.position, "y").name("posy").min(0).max(15).step(0.01);
+      this.debugFolder.add(this.instance.position, "z").name("posz").min(0).max(15).step(0.01);
+
+      //rotation
+      this.debugFolder.add(this.instance.rotation, "x").name("rotx").min(-50).max(50).step(0.01);
+      this.debugFolder.add(this.instance.rotation, "y").name("roty").min(-50).max(50).step(0.01);
+      this.debugFolder.add(this.instance.rotation, "z").name("rotz").min(-50).max(50).step(0.01);
 
       this.debugFolder
         .add(this.instance, "near")
@@ -71,24 +84,42 @@ export default class Camera {
     }
   }
 
-  private setControls() {
-    this.controls = new OrbitControls(this.instance, this.canvas);
-    this.controls.enableDamping = true;
-  }
-
   public resize() {
     this.instance.aspect = this.sizes.width / this.sizes.height;
     this.instance.updateProjectionMatrix();
   }
 
+  public initialPosition() {
+    this.experience.parallax.params.active = false;
+    gsap.fromTo(
+      this.instance.position,
+      {
+        x: this.instance.position.x,
+        y: this.instance.position.y,
+        z: this.instance.position.z,
+        onComplete: () => {
+          this.experience.parallax.params.active = true;
+          this.experience.selectedItem = false;
+        },
+      },
+      {
+        x: this.params.x,
+        y: this.params.y,
+        z: this.params.y,
+        duration: 2,
+        ease: "expo.easeOut",
+      }
+    );
+  }
+
   public update() {
-    // this.controls.update();
+    this.instance.lookAt(0, 2.5, 0);
 
     if (this.parallax.params.active) {
       this.instance.position.x += (this.parallax.instance.x - this.instance.position.x) * this.parallax.params.ease;
       // this.instance.position.y += (this.parallax.instance.y - this.instance.position.y) * this.parallax.params.ease;
-      this.instance.position.z += (65 - this.instance.position.z) * this.parallax.params.ease;
-      this.instance.lookAt(0, 0, 0);
+      // this.instance.position.z += (65 - this.instance.position.z) * this.parallax.params.ease;
+      this.instance.lookAt(0, 2.5, 0);
     }
   }
 }

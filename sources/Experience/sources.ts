@@ -13,9 +13,21 @@ export const chapter_1 = [
   },
 
   {
+    name: "texture",
+    type: "texture",
+    path: "textures/uv.jpg",
+  },
+
+  {
     name: "desk",
     type: "gltfModel",
     path: "models/desktop/desk.glb",
+  },
+
+  {
+    name: "desk2",
+    type: "gltfModel",
+    path: "models/desk2/desk2.glb",
   },
 ];
 

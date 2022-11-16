@@ -1,17 +1,12 @@
 import * as THREE from "three";
 
-import Experience from "@experience/Experience";
-
 export default class Video {
-  private experience: Experience;
-  private scene: THREE.Scene;
   private video: HTMLVideoElement;
   private videoTexture: THREE.Texture;
+  movieScreen: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
+  movieMaterial: THREE.MeshBasicMaterial;
 
   constructor() {
-    this.experience = new Experience();
-    this.scene = this.experience.scene;
-
     this.setVideo();
   }
 
@@ -24,16 +19,14 @@ export default class Video {
     this.videoTexture.minFilter = THREE.LinearFilter;
     this.videoTexture.magFilter = THREE.LinearFilter;
 
-    var movieMaterial = new THREE.MeshBasicMaterial({
+    this.videoTexture.wrapS = THREE.RepeatWrapping;
+    this.videoTexture.repeat.x = -1;
+
+    this.movieMaterial = new THREE.MeshBasicMaterial({
       map: this.videoTexture,
       side: THREE.FrontSide,
       toneMapped: false,
     });
-
-    var movieGeometry = new THREE.PlaneGeometry(20, 10, 20, 20);
-    var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
-    movieScreen.position.set(0, 10, 0);
-    this.scene.add(movieScreen);
   }
 
   update() {

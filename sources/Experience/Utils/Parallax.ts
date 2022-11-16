@@ -20,9 +20,9 @@ export default class Parallax {
     this.debug = this.experience.debug;
 
     this.params = {
-      active: true,
-      intensity: 0.029,
-      ease: 0.083,
+      active: false,
+      intensity: 0.004,
+      ease: 0.019,
     };
 
     if (this.debug.active) {
@@ -46,8 +46,8 @@ export default class Parallax {
     if (this.params.active) {
       this.instance.x = (e.clientX - this.sizes.width / 2) * this.params.intensity;
       // this.instance.y = (e.clientY - this.sizes.height / 2) * this.params.intensity;
-      // const bottomLimit = -2.5;
-      // const topLimit = 0.5;
+      // const bottomLimit = 2.5;
+      // const topLimit = 10;
       // if (this.instance.y < bottomLimit) this.instance.y = bottomLimit;
       // if (this.instance.y > topLimit) this.instance.y = topLimit;
     }

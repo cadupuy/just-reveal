@@ -3,6 +3,9 @@ import gsap from "gsap";
 
 import Experience from "@experience/Experience";
 import Camera from "@experience/Camera";
+import Parallax from "@experience/Utils/Parallax";
+
+import Video from "@world/Video";
 
 export default class Room {
   private experience: Experience;
@@ -17,15 +20,25 @@ export default class Room {
   items: THREE.Mesh[];
   camera: Camera;
   bodyElem: HTMLElement;
+  parallax: Parallax;
+  uv: any;
+  video: Video;
+  videoTexture: THREE.VideoTexture;
+  screen: THREE.Mesh | null;
 
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
     this.resources = this.experience.resources;
-    this.resource = this.resources.items.desk;
+    this.resource = this.resources.items.desk2;
+    this.uv = this.resources.items.texture;
     this.items = this.experience.items;
+    this.parallax = this.experience.parallax;
     this.bodyElem = document.querySelector("html,body") as HTMLElement;
+    this.video = new Video();
+
+    this.screen;
 
     this.setRoom();
   }
@@ -34,101 +47,63 @@ export default class Room {
     this.model = this.resource.scene;
 
     this.model.traverse((child: THREE.Mesh) => {
-      console.log(child);
-
-      if (child.name == "container_tiroir1") {
-        child.userData.open = false;
+      if (child.name == "socle_globe") {
         this.items.push(child);
       }
 
-      if (child.name == "container_tiroir2") {
-        child.userData.open = false;
+      if (child.name == "ecran_video") {
+        this.screen = child;
+        child.material = this.video.movieMaterial;
+
         this.items.push(child);
       }
 
-      if (child.name == "container_tiroir3") {
-        child.userData.open = false;
-        this.items.push(child);
-      }
-
-      if (child.name == "sphere3") {
+      if (child.name == "lampe") {
         this.items.push(child);
       }
     });
 
-    this.model.scale.set(4, 4, 4);
-    this.model.position.set(0, 0, 3);
+    this.model.scale.set(3, 3, 3);
+    this.model.position.set(0, 0, 0);
     this.scene.add(this.model);
   }
 
   public handleClick(el: THREE.Mesh) {
     // this.experience.parallax.params.active = false;
 
-    if (el.name.includes("tiroir")) this.handleDrawer(el);
-    if (el.name.includes("globe")) this.handleGlobe(el);
-    if (el.name.includes("Sphere")) this.handleItem(el);
+    console.log(el.name);
+
+    if (el.name.includes("socle_globe")) this.handleCube();
+    if (el.name.includes("ecran_video")) this.handleScreen(el);
+    if (el.name.includes("lampe")) this.handleMouse();
   }
 
-  private handleDrawer(el: THREE.Mesh) {
-    console.log(el);
-
-    if (el.userData.open) {
-      gsap.to(
-        el.position,
-
-        {
-          duration: 0.6,
-          z: 1.2,
-          ease: "ease.in",
-
-          onComplete: () => {
-            el.userData.open = !el.userData.open;
-          },
-        }
-      );
-
-      // gsap.to(this.camera.instance.position, {
-      //   duration: 2,
-      //   x: el.position.x,
-      //   y: el.position.y,
-      //   z: el.position.z,
-      // });
-
-      // gsap.to(this.camera.instance.rotation, {
-      //   duration: 2,
-      //   x: this.model.children[1].rotation.x,
-      //   y: this.model.children[1].rotation.y,
-      //   z: this.model.children[1].rotation.z,
-      // });
-    } else {
-      gsap.to(
-        el.position,
-
-        {
-          z: 3,
-          duration: 0.6,
-          ease: "ease.in",
-          onComplete: () => {
-            el.userData.open = !el.userData.open;
-            let array = [...this.experience.items];
-            array.filter((item: any) => item.name !== el.name);
-            this.experience.items = array;
-          },
-        }
-      );
-    }
+  private handleScreen(el: THREE.Mesh) {
+    this.camera.instance.lookAt(0, 7, 0);
+    gsap.to(this.camera.instance.position, {
+      duration: 2,
+      z: el.position.z,
+    });
   }
 
-  private handleGlobe(el: THREE.Mesh) {
-    console.log("globe", el);
+  private handleMouse() {
+    this.experience.switchLevel();
   }
 
-  private handleItem(el: THREE.Mesh) {
-    gsap.to(el.position, {
-      duration: 3,
-      x: this.camera.instance.position.x,
-      y: this.camera.instance.position.y,
-      z: this.camera.instance.position.z - 20,
+  private handleCube() {
+    console.log("yes");
+
+    this.parallax.params.active = false;
+    this.experience.selectedItem = true;
+
+    gsap.to(this.camera.instance.position, {
+      z: 20,
+      duration: 1,
+      ease: "power3.easeOut",
+      onComplete: () => {
+        this.experience.isLoading = true;
+        this.parallax.params.active = true;
+      },
     });
   }
 }

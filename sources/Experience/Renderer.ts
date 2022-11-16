@@ -2,8 +2,8 @@ import {
   WebGLRenderer,
   Mesh,
   sRGBEncoding,
-  CineonToneMapping,
   NoToneMapping,
+  CineonToneMapping,
   LinearToneMapping,
   ReinhardToneMapping,
   ACESFilmicToneMapping,
@@ -60,8 +60,8 @@ export default class Renderer {
 
     this.instance.physicallyCorrectLights = true;
     this.instance.outputEncoding = sRGBEncoding;
-    this.instance.toneMapping = CineonToneMapping;
-    this.instance.toneMappingExposure = 0.25;
+    this.instance.toneMapping = NoToneMapping;
+    this.instance.toneMappingExposure = 1;
     this.instance.setClearColor("#555555", 1);
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));

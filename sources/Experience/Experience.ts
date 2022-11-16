@@ -1,9 +1,9 @@
-import { Scene, Mesh } from "three";
-
+import { Scene } from "three";
+import gsap from "gsap";
 import Camera from "@experience/Camera";
 import Renderer from "@experience/Renderer";
 import Loader from "@experience/Loader";
-import { chapter_1 } from "@experience/sources";
+import { chapter_1, chapter_2, chapter_3 } from "@experience/sources";
 import Raycast from "@experience/Raycaster";
 
 import Debug from "@utils/Debug";
@@ -34,7 +34,9 @@ export default class Experience {
   raycast: Raycast;
   parallax: Parallax;
   items: THREE.Mesh[];
-  selectedItem: THREE.Mesh | null;
+  selectedItem: boolean;
+  level: number;
+  isLoading: boolean;
 
   constructor(_canvas?: HTMLCanvasElement) {
     // Singleton
@@ -50,7 +52,9 @@ export default class Experience {
     // Options
     this.canvas = _canvas;
     this.items = [];
-    this.selectedItem = null;
+    this.level = 1;
+    this.isLoading = true;
+    this.selectedItem = false;
 
     // Setup
     this.setDebug();
@@ -139,35 +143,46 @@ export default class Experience {
   private update() {
     if (this.stats.active) this.stats.update();
     this.camera.update();
-    this.raycast.update();
+    if (!this.isLoading) this.raycast.update();
     this.world.update();
     this.renderer.update();
   }
 
+  public async switchLevel() {
+    console.log("titi");
+    this.level++;
+
+    if (this.level === 1) {
+      this.loader.animEnter();
+      this.resources = new Resources(chapter_1);
+      this.loader.animExit();
+    }
+
+    if (this.level === 2) {
+      this.loader.animEnter();
+
+      this.resources = new Resources(chapter_2);
+      this.loader.animExit();
+    }
+    if (this.level === 3) {
+      this.loader.animEnter();
+      this.resources = new Resources(chapter_3);
+      this.loader.animExit();
+    }
+
+    if (this.level === 4) {
+      gsap.to(this.loader.overlayMaterial.uniforms.uAlpha, { duration: 3, value: 1, delay: 1 });
+      this.destroy();
+      this.level = 1;
+    }
+  }
+
   public destroy() {
-    this.sizes.off("resize");
-    this.time.off("tick");
-
-    // Traverse the whole scene
-    this.scene.traverse((child) => {
-      // Test if it's a mesh
-      if (child instanceof Mesh) {
-        child.geometry.dispose();
-
-        // Loop through the material properties
-        for (const key in child.material) {
-          const value = child.material[key];
-
-          // Test if there is a dispose function
-          if (value && typeof value.dispose === "function") {
-            value.dispose();
-          }
-        }
+    for (let i = this.scene.children.length - 1; i >= 0; i--) {
+      let child = this.scene.children[i];
+      if (child.name !== "loader") {
+        this.scene.remove(child);
       }
-    });
-
-    this.renderer.instance.dispose();
-
-    if (this.debug.active) this.debug.ui.destroy();
+    }
   }
 }

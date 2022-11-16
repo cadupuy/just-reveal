@@ -13,13 +13,17 @@
         <div class="progressFill"></div>
       </div>
 
-      <button class="start">START EXPERIENCE</button>
+      <button class="start">Enter</button>
     </div>
     <canvas class="webgl"></canvas>
 
     <video id="video" crossorigin="anonymous" playsinline>
       <source src="assets/intro.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
     </video>
+
+    <div id="cursorWrapper">
+      <div id="cursor" class="in"><div class="ripple"></div></div>
+    </div>
 
     <script type="module" src="./index.ts"></script>
   </body>

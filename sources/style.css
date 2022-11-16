@@ -50,22 +50,155 @@ body {
 }
 
 .start {
+  cursor: pointer;
+  font-family: "EB Garamond", serif;
+  letter-spacing: 2px;
+  font-weight: 500;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0.75rem 2rem;
+  transition: all 0.2s ease-in-out;
   opacity: 0;
   margin: auto;
-  display: flex;
-  cursor: pointer;
-  background: transparent;
-  color: white;
-  padding: 20px 30px;
-  border: 1px solid white;
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
 }
 
-.score {
+.start:hover {
+  background-color: #999999;
+}
+
+#cursorWrapper {
+  position: fixed;
+  overflow: visible;
+  z-index: 1000;
+
+  width: clamp(50px, 6vw, 150px);
+  height: clamp(50px, 6vw, 150px);
+
+  display: grid;
+  place-items: center;
+}
+
+#cursorWrapper {
+  left: 0;
+  top: 0;
+  position: fixed;
+}
+
+#cursorWrapper,
+#cursorWrapper * {
+  pointer-events: none;
+  touch-action: none;
+  will-change: transform;
+}
+
+#cursor {
+  position: relative;
+  overflow: visible;
+
+  z-index: 100;
+
+  width: clamp(50px, 6vw, 150px);
+  height: clamp(50px, 6vw, 150px);
+  opacity: 0;
+
+  transform: scale(0.75);
+  transform-origin: center;
+
+  border-radius: 50%;
+  border: 0.125rem solid rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0);
+
+  transition: opacity 0.5s ease-in-out, transform ease-in-out 0.25s, border ease-in-out 0.25s;
+}
+
+#cursor.in.intersecting {
+  transform: scale(1);
+  border: 0.125rem solid rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+
+.ripple {
   position: absolute;
-  top: 20px;
-  left: 50%;
-  z-index: 2;
-  color: white;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
+  inset: 0;
+  opacity: 0;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 65%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  mix-blend-mode: lighten;
+
+  animation-name: rippleAnimation;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+  animation-duration: 1.25s;
+}
+
+@keyframes rippleAnimation {
+  0% {
+    opacity: 1;
+
+    transform: scale(0.5);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: scale(1.5);
+  }
+}
+
+.controls__sound {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  transition: opacity 0.5s ease-out;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  overflow: hidden;
+  border-radius: 40px;
+  width: 34px;
+  height: 34px;
+  transition: all 0.4s ease;
+}
+
+.controls__sound span {
+  display: inline-block;
+  height: 1px;
+  width: 1px;
+  background-color: var(--c-white);
+  transform: scaleY(2);
+}
+
+.controls__sound span:not(:last-child) {
+  margin-right: 3px;
+}
+
+.controls__sound.is-active span {
+  animation: scaleSound 1s ease infinite alternate;
+  animation-delay: calc(var(--i) * 75ms);
+}
+
+@keyframes scaleSound {
+  0% {
+    transform: scaleY(2);
+  }
+  to {
+    transform: scaleY(15);
+  }
 }
