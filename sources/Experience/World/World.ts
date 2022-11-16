@@ -10,7 +10,6 @@ import Environment from "@world/Environment";
 import Cube from "@world/Cube";
 import Camera from "@experience/Camera";
 import Parallax from "@utils/Parallax";
-import Sky from "@world/Sky";
 import Resources from "@utils/Resources";
 import Sound from "@experience/Sound";
 
@@ -25,7 +24,6 @@ export default class World {
   public cube: Cube;
   public camera: Camera;
   public parallax: Parallax;
-  public sky: Sky;
   resources: Resources;
   audio: Sound;
 
@@ -49,7 +47,6 @@ export default class World {
     this.button.addEventListener("click", () => {
       this.setCube();
       this.setRoom();
-      this.setSky();
       this.setEnvironment();
 
       this.audio.init();
@@ -91,10 +88,6 @@ export default class World {
         "<-0.7"
       );
     });
-  }
-
-  private setSky() {
-    this.sky = new Sky();
   }
 
   private setCube() {
