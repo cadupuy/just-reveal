@@ -100,7 +100,7 @@ export default class Experience {
   }
 
   private setAudio() {
-    this.audio = new Sound("/assets/music.mp3");
+    this.audio = new Sound("/assets/music/ambiance.mp3");
   }
 
   private setDebug() {

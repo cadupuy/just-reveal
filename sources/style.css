@@ -1,3 +1,11 @@
+/*
+**********************************************
+**********************************************
+GLOBAL
+**********************************************
+**********************************************
+*/
+
 * {
   margin: 0;
   padding: 0;
@@ -8,12 +16,28 @@ body {
   overflow: hidden;
 }
 
+/*
+**********************************************
+**********************************************
+CANVAS
+**********************************************
+**********************************************
+*/
+
 .webgl {
   position: fixed;
   top: 0;
   left: 0;
   outline: none;
 }
+
+/*
+**********************************************
+**********************************************
+LOADER 
+**********************************************
+**********************************************
+*/
 
 .loader {
   z-index: 10;
@@ -32,6 +56,14 @@ body {
   pointer-events: none;
 }
 
+/*
+**********************************************
+**********************************************
+LOADING BAR
+**********************************************
+**********************************************
+*/
+
 .progressBar {
   width: 300px;
   height: 5px;
@@ -48,6 +80,14 @@ body {
   transition: all 2s;
   border-radius: 30px;
 }
+
+/*
+**********************************************
+**********************************************
+BUTTON START
+**********************************************
+**********************************************
+*/
 
 .start {
   cursor: pointer;
@@ -71,6 +111,14 @@ body {
 .start:hover {
   background-color: #999999;
 }
+
+/*
+**********************************************
+**********************************************
+CUSTOM CURSOR
+**********************************************
+**********************************************
+*/
 
 #cursorWrapper {
   position: fixed;
@@ -159,49 +207,13 @@ body {
   }
 }
 
-.controls__sound {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  cursor: pointer;
-  transition: opacity 0.5s ease-out;
-  margin-right: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  overflow: hidden;
-  border-radius: 40px;
-  width: 34px;
-  height: 34px;
-  transition: all 0.4s ease;
-}
-
-.controls__sound span {
-  display: inline-block;
-  height: 1px;
-  width: 1px;
-  background-color: var(--c-white);
-  transform: scaleY(2);
-}
-
-.controls__sound span:not(:last-child) {
-  margin-right: 3px;
-}
-
-.controls__sound.is-active span {
-  animation: scaleSound 1s ease infinite alternate;
-  animation-delay: calc(var(--i) * 75ms);
-}
-
-@keyframes scaleSound {
-  0% {
-    transform: scaleY(2);
-  }
-  to {
-    transform: scaleY(15);
-  }
-}
+/*
+**********************************************
+**********************************************
+BACK ICON
+**********************************************
+**********************************************
+*/
 
 .backWrapper {
   width: 100%;
@@ -240,12 +252,3 @@ body {
 
   margin-right: 0.5rem;
 }
-
-/* .icon_back {
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  z-index: 2;
-  width: 40px;
-  cursor: pointer;
-} */

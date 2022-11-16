@@ -9,12 +9,6 @@ export default class Sound {
   currentTime: number;
 
   constructor(audioUrl: string) {
-    // if (SoundClass._instance) {
-    //   return SoundClass._instance;
-    // }
-
-    // SoundClass._instance = this;
-
     this.ctx;
     this.audio;
     this.audioSource;

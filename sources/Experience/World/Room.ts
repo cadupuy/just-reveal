@@ -28,6 +28,7 @@ export default class Room {
   screen: THREE.Mesh | null;
 
   cube: Cube;
+  audio: import("/Users/charles-antoinedupuy/Desktop/testts/sources/Experience/Sound").default;
 
   constructor(cube: Cube) {
     this.experience = new Experience();
@@ -81,9 +82,9 @@ export default class Room {
   public handleClick(el: THREE.Mesh) {
     // this.experience.parallax.params.active = false;
 
-    if (el.name.includes("Globe") || el.name.includes("socle_globe")) this.handleGlobe(el);
-    if (el.name.includes("ecran_video")) this.handleScreen(el);
-    if (el.name.includes("lampe")) this.handleLampe(el);
+    if (el.name.includes("Globe") || el.name.includes("socle_globe")) this.handleGlobe();
+    if (el.name.includes("ecran_video")) this.handleScreen();
+    if (el.name.includes("lampe")) this.handleLampe();
     if (el.name.includes("cactus")) this.handleAudio();
   }
 

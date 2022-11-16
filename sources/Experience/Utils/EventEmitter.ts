@@ -91,14 +91,14 @@ export default class EventEmitter {
     return this;
   }
 
-  trigger(_name, _args?) {
+  trigger(_name: any, _args?: any) {
     // Errors
     if (typeof _name === "undefined" || _name === "") {
       console.warn("wrong name");
       return false;
     }
 
-    let finalResult = null;
+    let finalResult: any = null;
     let result = null;
 
     // Default args
@@ -115,7 +115,7 @@ export default class EventEmitter {
       // Try to find callback in each namespace
       for (const namespace in this.callbacks) {
         if (this.callbacks[namespace] instanceof Object && this.callbacks[namespace][name.value] instanceof Array) {
-          this.callbacks[namespace][name.value].forEach(function (callback) {
+          this.callbacks[namespace][name.value].forEach(function (this: any, callback: any) {
             result = callback.apply(this, args);
 
             if (typeof finalResult === "undefined") {
@@ -133,7 +133,7 @@ export default class EventEmitter {
         return this;
       }
 
-      this.callbacks[name.namespace][name.value].forEach(function (callback) {
+      this.callbacks[name.namespace][name.value].forEach(function (this: any, callback: any) {
         result = callback.apply(this, args);
 
         if (typeof finalResult === "undefined") finalResult = result;
@@ -143,7 +143,7 @@ export default class EventEmitter {
     return finalResult;
   }
 
-  resolveNames(_names) {
+  resolveNames(_names: any) {
     let names = _names;
     names = names.replace(/[^a-zA-Z0-9 ,/.]/g, "");
     names = names.replace(/[,/]+/g, " ");
@@ -152,8 +152,8 @@ export default class EventEmitter {
     return names;
   }
 
-  resolveName(name) {
-    const newName = {};
+  resolveName(name: any) {
+    const newName: any = {};
     const parts = name.split(".");
 
     newName.original = name;

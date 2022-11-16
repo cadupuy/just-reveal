@@ -6,13 +6,13 @@ import EventEmitter from "@utils/EventEmitter";
 
 export default class Resources extends EventEmitter {
   sources: any;
-  items: {};
+  items: any;
   toLoad: any;
   loaded: number;
-  loaders: {};
   progressBar: HTMLDivElement;
   progressFill: HTMLDivElement;
   button: HTMLButtonElement;
+  loaders: any;
   progressRatio: number;
 
   constructor(sources: any) {
@@ -41,22 +41,22 @@ export default class Resources extends EventEmitter {
     // Load each source
     for (const source of this.sources) {
       if (source.type === "gltfModel") {
-        this.loaders.gltfLoader.load(source.path, (file) => {
+        this.loaders.gltfLoader.load(source.path, (file: any) => {
           this.sourceLoaded(source, file);
         });
       } else if (source.type === "texture") {
-        this.loaders.textureLoader.load(source.path, (file) => {
+        this.loaders.textureLoader.load(source.path, (file: any) => {
           this.sourceLoaded(source, file);
         });
       } else if (source.type === "cubeTexture") {
-        this.loaders.cubeTextureLoader.load(source.path, (file) => {
+        this.loaders.cubeTextureLoader.load(source.path, (file: any) => {
           this.sourceLoaded(source, file);
         });
       }
     }
   }
 
-  sourceLoaded(source, file) {
+  sourceLoaded(source: any, file: any) {
     this.items[source.name] = file;
 
     this.loaded++;

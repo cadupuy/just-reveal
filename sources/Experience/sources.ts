@@ -13,12 +13,6 @@ export const chapter_1 = [
   },
 
   {
-    name: "texture",
-    type: "texture",
-    path: "textures/uv.jpg",
-  },
-
-  {
     name: "desk",
     type: "gltfModel",
     path: "models/desktop/desk.glb",
