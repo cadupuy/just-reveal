@@ -4,6 +4,7 @@ import Experience from "@experience/Experience";
 import Camera from "@experience/Camera";
 
 import Mouse from "@utils/Mouse";
+import Cube from "@world/Cube";
 
 export default class Raycast {
   public raycaster: Raycaster;
@@ -17,7 +18,7 @@ export default class Raycast {
   private cursor: HTMLElement;
   public material: any;
   items: THREE.Mesh[];
-  cube: import("/Users/charles-antoinedupuy/Desktop/testts/sources/Experience/World/Cube").default;
+  cube: Cube;
 
   constructor() {
     this.experience = new Experience();

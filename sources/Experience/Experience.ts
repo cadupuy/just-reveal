@@ -1,9 +1,9 @@
 import { Scene } from "three";
 
+import { chapter_1, chapter_2, chapter_3 } from "@experience/sources";
 import Camera from "@experience/Camera";
 import Renderer from "@experience/Renderer";
 import Loader from "@experience/Loader";
-import { chapter_1, chapter_2, chapter_3 } from "@experience/sources";
 import Raycast from "@experience/Raycaster";
 
 import Debug from "@utils/Debug";
@@ -15,7 +15,7 @@ import Mouse from "@utils/Mouse";
 import Parallax from "@utils/Parallax";
 
 import World from "@world/World";
-import Sound from "./Sound";
+import Sound from "@experience/Sound";
 
 export default class Experience {
   private static instance: Experience;

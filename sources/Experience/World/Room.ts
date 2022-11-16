@@ -7,6 +7,7 @@ import Parallax from "@experience/Utils/Parallax";
 
 import Video from "@world/Video";
 import Cube from "@world/Cube";
+import Sound from "@experience/Sound";
 
 export default class Room {
   private experience: Experience;
@@ -28,7 +29,7 @@ export default class Room {
   screen: THREE.Mesh | null;
 
   cube: Cube;
-  audio: import("/Users/charles-antoinedupuy/Desktop/testts/sources/Experience/Sound").default;
+  audio: Sound;
 
   constructor(cube: Cube) {
     this.experience = new Experience();
