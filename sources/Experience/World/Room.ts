@@ -189,6 +189,8 @@ export default class Room {
   }
 
   private handlePassion() {
+    document.querySelector<HTMLDivElement>(`[data-name="medecine"]`)!.style.display = "block";
+
     this.overlay.classList.add("in");
 
     this.parallax.params.active = false;
@@ -218,6 +220,8 @@ export default class Room {
   }
 
   private handleNintendo() {
+    document.querySelector<HTMLDivElement>(`[data-name="nintendo"]`)!.style.display = "block";
+
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
     this.arrow.classList.add("in");

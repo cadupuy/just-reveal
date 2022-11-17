@@ -11,6 +11,7 @@ export default class Resources extends EventEmitter {
   loaded: number;
   progressBar: HTMLDivElement;
   progressFill: HTMLDivElement;
+  description: HTMLDivElement;
   button: HTMLButtonElement;
   loaders: any;
   progressRatio: number;
@@ -22,8 +23,9 @@ export default class Resources extends EventEmitter {
     this.items = {};
     this.toLoad = this.sources.length;
     this.loaded = 0;
-    this.progressBar = document.querySelector(".loader__progressBar") as HTMLDivElement;
     this.progressFill = document.querySelector(".loader__progressFill") as HTMLDivElement;
+    this.progressBar = document.querySelector(".loader__progressBar") as HTMLDivElement;
+    this.description = document.querySelector(".loader__description") as HTMLDivElement;
     this.button = document.querySelector(".loader__button") as HTMLButtonElement;
 
     this.setLoaders();
@@ -66,19 +68,37 @@ export default class Resources extends EventEmitter {
     this.progressFill.style.width = `${this.progressRatio}%`;
 
     if (this.loaded === this.toLoad) {
-      this.trigger("ready");
+      // this.trigger("ready");
 
-      gsap.to(this.progressBar, {
+      const tl = gsap.timeline();
+
+      tl.to(this.progressBar, {
         opacity: 0,
-        duration: 1,
-        delay: 1,
+        duration: 1.5,
+        delay: 2,
+        ease: "expo.inOut",
       });
 
-      gsap.to(this.button, {
-        opacity: 1,
-        duration: 1,
-        delay: 1.5,
-      });
+      tl.to(
+        this.description,
+        {
+          opacity: 0,
+          duration: 1.5,
+          delay: 2,
+          ease: "expo.inOut",
+        },
+        "0"
+      );
+
+      tl.to(
+        this.button,
+        {
+          opacity: 1,
+          duration: 1,
+          ease: "expo.inOut",
+        },
+        "<0.5"
+      );
     }
   }
 }

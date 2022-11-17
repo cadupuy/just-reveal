@@ -1,4 +1,4 @@
-import { DirectionalLight, DirectionalLightHelper, SpotLight, SpotLightHelper } from "three";
+import { DirectionalLight, DirectionalLightHelper } from "three";
 import GUI from "lil-gui";
 
 import Experience from "@experience/Experience.js";

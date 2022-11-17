@@ -16,6 +16,23 @@ body {
   overflow: hidden;
 }
 
+@font-face {
+  font-family: "Alcotton";
+  src: url("/assets/fonts/Alcotton.woff2") format("woff2"), url("/assets/fonts/Alcotton.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Futura Md BT";
+  src: url("/assets/fonts/FuturaBT-Medium.woff2") format("woff2"),
+    url("/assets/fonts/FuturaBT-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 /*
 **********************************************
 **********************************************
@@ -64,17 +81,33 @@ LOADING BAR
 **********************************************
 */
 
+.loader__title {
+  font-family: "Alcotton";
+  font-size: 70px;
+  margin-bottom: 75px;
+}
+
+.loader__description {
+  margin-bottom: -20px;
+  text-align: center;
+  font-family: "Futura Md BT";
+}
+
 .loader__image {
   width: 100px;
 }
 
+.loader__progressContainer {
+  position: relative;
+  width: 100%;
+}
+
 .loader__progressBar {
-  width: 300px;
-  height: 5px;
+  width: 100vw;
+  height: 1px;
   margin: 30px auto;
   display: flex;
-  background: gray;
-  border-radius: 30px;
+  background: transparent;
 }
 
 .loader__progressFill {
@@ -82,7 +115,6 @@ LOADING BAR
   height: 100%;
   background: white;
   transition: all 2s;
-  border-radius: 30px;
 }
 
 /*
@@ -95,19 +127,23 @@ BUTTON START
 
 .loader__button {
   cursor: pointer;
-  font-family: "EB Garamond", serif;
-  letter-spacing: 2px;
-  font-weight: 500;
+  font-family: "Alcotton";
+  letter-spacing: -5px;
+  font-size: 20px;
   background-color: transparent;
   color: #fff;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   padding: 0.75rem 2rem;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.25s ease-in-out;
   opacity: 0;
   margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.start:hover {
+.loader__button:hover {
   background-color: #999999;
 }
 
@@ -282,6 +318,10 @@ OVERLAY
 
 .overlay.in {
   transform: translateX(0);
+}
+
+.overlay__images {
+  display: none;
 }
 
 .overlay__img1 {

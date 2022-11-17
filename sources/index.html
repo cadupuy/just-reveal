@@ -10,7 +10,17 @@
   <body>
     <div class="overlay">
       <div class="overlay__wrapper">
-        <div>
+        <div class="overlay__images" data-name="cafe">
+          <img class="overlay__img1" src="/assets/imgs/cafe/info_1.png" alt="" />
+          <img class="overlay__img2" src="/assets/imgs/cafe/info_2.png" alt="" />
+        </div>
+
+        <div class="overlay__images" data-name="nintendo">
+          <img class="overlay__img1" src="/assets/imgs/cafe/info_1.png" alt="" />
+          <img class="overlay__img2" src="/assets/imgs/cafe/info_2.png" alt="" />
+        </div>
+
+        <div class="overlay__images" data-name="medecine">
           <img class="overlay__img1" src="/assets/imgs/cafe/info_1.png" alt="" />
           <img class="overlay__img2" src="/assets/imgs/cafe/info_2.png" alt="" />
         </div>
@@ -24,17 +34,18 @@
     </div>
 
     <div class="loader">
-      <img class="loader__image" src="/assets/imgs/gobelins_logo.png" alt="" />
+      <h2 class="loader__title">REV(i)EAL</h2>
 
-      <h2>Titre de l'XP</h2>
+      <div class="loader__progressContainer">
+        <p class="loader__description">loading</p>
+        <div class="loader__progressBar">
+          <div class="loader__progressFill"></div>
+        </div>
 
-      <p>Description de l'XP</p>
-
-      <div class="loader__progressBar">
-        <div class="loader__progressFill"></div>
+        <button class="loader__button">ENTER</button>
       </div>
 
-      <button class="loader__button">Enter</button>
+      <!-- <img class="loader__image" src="/assets/imgs/gobelins_logo.png" alt="" /> -->
     </div>
     <canvas class="webgl"></canvas>
 
