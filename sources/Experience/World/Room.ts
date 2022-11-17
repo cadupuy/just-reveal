@@ -32,6 +32,7 @@ export default class Room {
   public level: number;
   public arrow: HTMLDivElement;
   public overlay: HTMLDivElement;
+  public overlays: NodeListOf<HTMLDivElement>;
 
   constructor(cube: Cube, level: number = 1) {
     this.experience = new Experience();
@@ -48,6 +49,8 @@ export default class Room {
     this.cube = cube;
     this.screen;
     this.level = level;
+    this.overlays = document.querySelectorAll(".overlay__images") as NodeListOf<HTMLDivElement>;
+
     this.arrow = document.querySelector(".back") as HTMLDivElement;
     this.overlay = document.querySelector(".overlay") as HTMLDivElement;
 
@@ -55,8 +58,6 @@ export default class Room {
   }
 
   private setRoom() {
-    console.log("je passe ici");
-
     if (this.experience.level === 1) {
       this.model = this.resource2020.scene;
     } else if (this.experience.level === 2) {
@@ -75,6 +76,10 @@ export default class Room {
       }
 
       if (child.name === "lampe") {
+        this.items.push(child);
+      }
+
+      if (child.name === "Mug") {
         this.items.push(child);
       }
 
@@ -104,8 +109,6 @@ export default class Room {
       }
     });
 
-    console.log("après", this.items);
-
     this.model.scale.set(3, 3, 3);
     this.model.position.set(0, 0, 0);
     this.scene.add(this.model);
@@ -114,9 +117,9 @@ export default class Room {
   public handleClick(el: THREE.Object3D) {
     // this.experience.parallax.params.active = false;
 
-    console.log(this.experience.items);
-
-    console.log("ele click");
+    this.overlays.forEach((el) => {
+      el.style.display = "none";
+    });
 
     if (el.name.includes("globe")) this.handleGlobe();
     if (el.name.includes("ecran_video")) this.handleScreen();
@@ -125,9 +128,41 @@ export default class Room {
     if (el.name === "nintendo") this.handleNintendo();
     if (el.name === "medecine") this.handleMedecine();
     if (el.name === "passion") this.handlePassion();
+    if (el.name === "Mug") this.handleMug();
+  }
+
+  private handleMug() {
+    document.querySelector<HTMLDivElement>(`[data-name="cafe"]`)!.style.display = "block";
+
+    this.parallax.params.active = false;
+    this.experience.selectedItem = true;
+    this.arrow.classList.add("in");
+    this.overlay.classList.add("in");
+
+    gsap.to(this.cube.mesh.position, {
+      x: -1.27,
+      y: 2.3,
+      z: 0.83,
+      duration: 2,
+      ease: "power4.easeIn",
+      onComplete: () => {
+        // this.parallax.params.intensity = 0.0001;
+        // this.parallax.params.active = true;
+      },
+    });
+
+    gsap.to(this.camera.instance.position, {
+      duration: 1.5,
+      x: -1.06,
+      y: 4.1,
+      z: 1.15,
+      ease: "power4.easeIn",
+    });
   }
 
   private handleMedecine() {
+    document.querySelector<HTMLDivElement>(`[data-name="medecine"]`)!.style.display = "block";
+
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
     this.arrow.classList.add("in");
@@ -147,9 +182,9 @@ export default class Room {
 
     gsap.to(this.camera.instance.position, {
       duration: 1.5,
-      x: -1.48,
-      y: 10,
-      z: 0.9,
+      x: 1.3,
+      y: 4.1,
+      z: 1,
       ease: "power4.easeIn",
     });
   }
@@ -189,7 +224,7 @@ export default class Room {
   }
 
   private handlePassion() {
-    document.querySelector<HTMLDivElement>(`[data-name="medecine"]`)!.style.display = "block";
+    document.querySelector<HTMLDivElement>(`[data-name="passion"]`)!.style.display = "block";
 
     this.overlay.classList.add("in");
 

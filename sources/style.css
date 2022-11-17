@@ -299,7 +299,7 @@ OVERLAY
 .overlay {
   width: 35vw;
   height: 100vh;
-  position: fixed;
+  position: absolute;
   transform: translateX(101%);
   transition: 1.8s transform cubic-bezier(0.87, 0, 0.13, 1);
   top: 0;

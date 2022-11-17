@@ -37,6 +37,7 @@ export default class Raycast {
         this.bodyElem.style.cursor = "default";
         this.arrow.classList.remove("in");
         this.overlay.classList.remove("in");
+
         this.camera.initialPosition();
         this.experience.world.cube.initialPosition();
         if (this.experience.isSoundActive) {

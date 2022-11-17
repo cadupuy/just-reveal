@@ -40,4 +40,19 @@ export default class Environment {
       this.debugFolder.add(this.sunLight.position, "z").name("sunLightZ").min(-50).max(50).step(0.001);
     }
   }
+
+  // public setLampe() {
+  //   this.geom = new ConeGeometry();
+  //   this.sunLight.position.set(1.1, 25, 37);
+  //   this.sunLight.name = "light";
+
+  //   this.scene.add(this.sunLight);
+
+  //   if (this.debug.active) {
+  //     this.debugFolder.add(this.sunLight, "intensity").name("sunLightIntensity").min(0).max(50).step(0.001);
+  //     this.debugFolder.add(this.sunLight.position, "x").name("sunLightX").min(-50).max(50).step(0.001);
+  //     this.debugFolder.add(this.sunLight.position, "y").name("sunLightY").min(-50).max(50).step(0.001);
+  //     this.debugFolder.add(this.sunLight.position, "z").name("sunLightZ").min(-50).max(50).step(0.001);
+  //   }
+  // }
 }
