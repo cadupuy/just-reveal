@@ -37,8 +37,7 @@ export default class Loader {
   }
 
   public animEnter() {
-    gsap.to(this.overlayMaterial.uniforms.uColor, { duration: 0, value: 0, delay: 0, ease: "expo.easeOut" });
-    gsap.to(this.overlayMaterial.uniforms.uAlpha, { duration: 1, value: 1, delay: 0, ease: "expo.easeOut" });
+    gsap.to(this.overlayMaterial.uniforms.uAlpha, { duration: 1, value: 1, ease: "expo.easeOut" });
   }
 
   public animExit() {

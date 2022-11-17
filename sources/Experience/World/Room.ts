@@ -64,6 +64,8 @@ export default class Room {
       this.model = this.resource2022.scene;
     }
 
+    console.log(this.model);
+
     this.model.traverse((child: THREE.Mesh) => {
       if (child.name == "ecran_video") {
         this.screen = child;
@@ -78,9 +80,9 @@ export default class Room {
         this.items.push(child);
       }
 
-      if (child.name == "socle") {
-        console.log(child);
+      if (child.name == "globe") {
         child.material = new MeshNormalMaterial();
+        this.experience.items.push(child);
       }
 
       if (child.name == "speaker") {
@@ -96,7 +98,7 @@ export default class Room {
   public handleClick(el: THREE.Mesh) {
     // this.experience.parallax.params.active = false;
 
-    if (el.name.includes("socle")) this.handleGlobe();
+    if (el.name.includes("globe")) this.handleGlobe();
     if (el.name.includes("clavier")) this.handleScreen();
     if (el.name.includes("lampe")) this.handleLampe();
     if (el.name.includes("speaker")) this.handleAudio();

@@ -38,12 +38,6 @@ export default class World {
     this.loaderDiv = document.querySelector(".loader") as HTMLDivElement;
     this.button = document.querySelector(".start") as HTMLButtonElement;
 
-    // Wait for resources
-    this.resources.on("ready", () => {
-      // Setup
-      console.log("jesus");
-    });
-
     this.button.addEventListener("click", () => {
       this.setCube();
       this.setRoom();
@@ -119,10 +113,7 @@ export default class World {
     if (this.cube) this.camera.instance.lookAt(this.cube.mesh.position);
   }
 
-  public init2021() {
-    this.room = new Room(this.cube);
-  }
-  public init2022() {
+  public newRoom() {
     this.room = new Room(this.cube);
   }
 }

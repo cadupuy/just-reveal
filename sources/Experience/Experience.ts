@@ -165,25 +165,12 @@ export default class Experience {
 
     this.items = [];
 
-    this.destroy();
-
-    if (this.level === 1) {
-      this.loader.animEnter();
-      this.world.init2021();
-      this.loader.animExit();
-    }
-
-    if (this.level === 2) {
-      this.loader.animEnter();
-      this.world.init2021();
-      this.loader.animExit();
-    }
-
-    if (this.level === 3) {
-      this.loader.animEnter();
-      this.world.init2022();
-      this.loader.animExit();
-    }
+    this.loader.animEnter();
+    setTimeout(() => {
+      this.destroy();
+      this.world.newRoom();
+    }, 900);
+    this.loader.animExit();
   }
 
   public destroy() {
