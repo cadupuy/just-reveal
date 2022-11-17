@@ -56,6 +56,7 @@ export default class Cube {
     this.mesh.position.x = this.params.x;
     this.mesh.position.y = 3.5;
     this.mesh.position.z = this.params.z;
+    this.mesh.name = "cube";
 
     if (this.debug.active) {
       //position

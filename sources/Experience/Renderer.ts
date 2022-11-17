@@ -7,12 +7,7 @@ import {
   LinearToneMapping,
   ReinhardToneMapping,
   ACESFilmicToneMapping,
-  Vector2,
 } from "three";
-
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
 
 import GUI from "lil-gui";
 
@@ -30,8 +25,6 @@ export default class Renderer {
   private camera: Camera;
   private debug: Debug;
   private debugFolder: GUI;
-  private effectComposer: EffectComposer;
-  private renderPass: RenderPass;
 
   public instance: WebGLRenderer;
 
@@ -49,7 +42,6 @@ export default class Renderer {
     }
 
     this.setInstance();
-    this.setPostprocessing();
   }
 
   private setInstance() {
@@ -88,49 +80,12 @@ export default class Renderer {
     }
   }
 
-  private setPostprocessing() {
-    this.effectComposer = new EffectComposer(this.instance);
-    this.effectComposer.setSize(this.sizes.width, this.sizes.height);
-    this.effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    this.renderPass = new RenderPass(this.scene, this.camera.instance);
-    this.effectComposer.addPass(this.renderPass);
-
-    const bloomParams = {
-      strength: 0,
-      radius: 0.4,
-      threshold: 0.85,
-    };
-
-    const bloomPass = new UnrealBloomPass(
-      new Vector2(this.sizes.width, this.sizes.height),
-      bloomParams.strength,
-      bloomParams.radius,
-      bloomParams.threshold
-    );
-    this.effectComposer.addPass(bloomPass);
-
-    if (this.debug.active) {
-      this.debugFolder
-        .add(bloomParams, "strength", 0.0, 3.0)
-        .onChange((value: string) => {
-          bloomPass.strength = Number(value);
-        })
-        .name("Bloom Strength");
-    }
-  }
-
   public resize() {
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
-
-    // Update effect composer
-    this.effectComposer.setSize(this.sizes.width, this.sizes.height);
-    this.effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
 
   public update() {
-    // this.instance.render(this.scene, this.camera.instance);
-    this.effectComposer.render();
+    this.instance.render(this.scene, this.camera.instance);
   }
 }

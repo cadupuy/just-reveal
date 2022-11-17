@@ -1,23 +1,19 @@
-export const chapter_1 = [
+export default [
   {
-    name: "desk2",
+    name: "desk2020",
     type: "gltfModel",
-    path: "models/desk2/desk2020.glb",
+    path: "models/room/desk2020.glb",
   },
-];
 
-export const chapter_2 = [
   {
-    name: "desk2",
+    name: "desk2021",
     type: "gltfModel",
-    path: "models/desk2/desk2021.glb",
+    path: "models/room/desk2021.glb",
   },
-];
 
-export const chapter_3 = [
   {
-    name: "desk",
+    name: "desk2022",
     type: "gltfModel",
-    path: "models/desktop/desk.glb",
+    path: "models/room/desk2022.glb",
   },
 ];

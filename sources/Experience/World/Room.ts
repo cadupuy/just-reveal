@@ -8,6 +8,7 @@ import Parallax from "@experience/Utils/Parallax";
 import Video from "@world/Video";
 import Cube from "@world/Cube";
 import Sound from "@experience/Sound";
+import { MeshNormalMaterial } from "three";
 
 export default class Room {
   private experience: Experience;
@@ -17,27 +18,29 @@ export default class Room {
   public material: THREE.MeshNormalMaterial;
   public mesh: THREE.Mesh<THREE.BoxGeometry, THREE.MeshNormalMaterial>;
   resources: any;
-  resource: any;
+  resource2020: any;
+  resource2021: any;
+  resource2022: any;
   model: any;
   items: THREE.Mesh[];
   camera: Camera;
   bodyElem: HTMLElement;
   parallax: Parallax;
-  uv: any;
   video: Video;
   videoTexture: THREE.VideoTexture;
   screen: THREE.Mesh | null;
-
   cube: Cube;
   audio: Sound;
+  level: number;
 
-  constructor(cube: Cube) {
+  constructor(cube: Cube, level: number = 1) {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
     this.resources = this.experience.resources;
-    this.resource = this.resources.items.desk2;
-    this.uv = this.resources.items.texture;
+    this.resource2020 = this.resources.items.desk2020;
+    this.resource2021 = this.resources.items.desk2021;
+    this.resource2022 = this.resources.items.desk2022;
     this.items = this.experience.items;
     this.parallax = this.experience.parallax;
     this.bodyElem = document.querySelector("html,body") as HTMLElement;
@@ -45,24 +48,29 @@ export default class Room {
     this.audio = this.experience.audio;
     this.cube = cube;
     this.screen;
+    this.level = level;
 
     this.setRoom();
   }
 
   private setRoom() {
-    this.model = this.resource.scene;
+    console.log(this.level);
 
-    console.log(this.model);
+    if (this.experience.level === 1) {
+      this.model = this.resource2020.scene;
+    } else if (this.experience.level === 2) {
+      this.model = this.resource2021.scene;
+    } else if (this.experience.level === 3) {
+      this.model = this.resource2022.scene;
+    }
 
     this.model.traverse((child: THREE.Mesh) => {
-      if (child.name == "socle_globe") {
-        this.items.push(child);
-      }
-
       if (child.name == "ecran_video") {
         this.screen = child;
         child.material = this.video.movieMaterial;
+      }
 
+      if (child.name === "clavier") {
         this.items.push(child);
       }
 
@@ -70,7 +78,12 @@ export default class Room {
         this.items.push(child);
       }
 
-      if (child.name == "cactus") {
+      if (child.name == "socle") {
+        console.log(child);
+        child.material = new MeshNormalMaterial();
+      }
+
+      if (child.name == "speaker") {
         this.items.push(child);
       }
     });
@@ -83,10 +96,10 @@ export default class Room {
   public handleClick(el: THREE.Mesh) {
     // this.experience.parallax.params.active = false;
 
-    if (el.name.includes("Globe") || el.name.includes("socle_globe")) this.handleGlobe();
-    if (el.name.includes("ecran_video")) this.handleScreen();
+    if (el.name.includes("socle")) this.handleGlobe();
+    if (el.name.includes("clavier")) this.handleScreen();
     if (el.name.includes("lampe")) this.handleLampe();
-    if (el.name.includes("cactus")) this.handleAudio();
+    if (el.name.includes("speaker")) this.handleAudio();
   }
 
   private handleScreen() {
@@ -138,6 +151,8 @@ export default class Room {
   private handleGlobe() {
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
+
+    // el.rotation.z = 4;
 
     gsap.to(this.cube.mesh.position, {
       x: -2.17,

@@ -36,6 +36,8 @@ export default class Raycast {
 
     window.addEventListener("click", () => {
       if (this.experience.selectedItem) {
+        this.bodyElem.style.cursor = "default";
+
         this.camera.initialPosition();
         this.experience.world.cube.initialPosition();
 

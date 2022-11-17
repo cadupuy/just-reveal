@@ -118,4 +118,11 @@ export default class World {
     if (this.video) this.video.update();
     if (this.cube) this.camera.instance.lookAt(this.cube.mesh.position);
   }
+
+  public init2021() {
+    this.room = new Room(this.cube);
+  }
+  public init2022() {
+    this.room = new Room(this.cube);
+  }
 }

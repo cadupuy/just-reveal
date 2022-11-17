@@ -1,6 +1,6 @@
 import { Scene } from "three";
 
-import { chapter_1, chapter_2, chapter_3 } from "@experience/sources";
+import sources from "@experience/sources";
 import Camera from "@experience/Camera";
 import Renderer from "@experience/Renderer";
 import Loader from "@experience/Loader";
@@ -125,11 +125,10 @@ export default class Experience {
 
   private setScene() {
     this.scene = new Scene();
-    // this.scene.fog = new Fog(0x030229, 50, 101);
   }
 
   private setResources() {
-    this.resources = new Resources(chapter_1);
+    this.resources = new Resources(sources);
   }
 
   private setCamera() {
@@ -158,40 +157,39 @@ export default class Experience {
   }
 
   public async switchLevel() {
-    console.log("switch level");
-    this.level++;
+    if (this.level <= 2) {
+      this.level++;
+    } else {
+      this.level = 1;
+    }
+
+    this.items = [];
 
     this.destroy();
 
     if (this.level === 1) {
       this.loader.animEnter();
-      this.resources = new Resources(chapter_1);
+      this.world.init2021();
       this.loader.animExit();
     }
 
     if (this.level === 2) {
       this.loader.animEnter();
-
-      this.resources = new Resources(chapter_2);
+      this.world.init2021();
       this.loader.animExit();
     }
+
     if (this.level === 3) {
       this.loader.animEnter();
-      this.resources = new Resources(chapter_3);
+      this.world.init2022();
       this.loader.animExit();
     }
-
-    // if (this.level === 4) {
-    //   gsap.to(this.loader.overlayMaterial.uniforms.uAlpha, { duration: 3, value: 1, delay: 1 });
-    //   this.destroy();
-    //   this.level = 1;
-    // }
   }
 
   public destroy() {
     for (let i = this.scene.children.length - 1; i >= 0; i--) {
       let child = this.scene.children[i];
-      if (child.name !== "loader") {
+      if (child.name !== "loader" && child.name !== "cube" && child.name !== "light") {
         this.scene.remove(child);
       }
     }

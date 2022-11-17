@@ -28,11 +28,10 @@ export default class Environment {
   }
 
   setSunLight() {
-    this.ambientLight = new AmbientLight("#FFFFFF");
-    this.scene.add(this.ambientLight);
-
-    this.sunLight = new DirectionalLight("#ffffff", 35);
+    this.sunLight = new DirectionalLight("#ffffff", 8);
     this.sunLight.position.set(1.1, 25, 37);
+    this.sunLight.name = "light";
+
     this.scene.add(this.sunLight);
 
     if (this.debug.active) {
