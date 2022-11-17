@@ -61,8 +61,8 @@ export default class Cube {
     if (this.debug.active) {
       //position
       this.debugFolder.add(this.mesh.position, "x").name("posx").min(-15).max(15).step(0.01);
-      this.debugFolder.add(this.mesh.position, "y").name("posy").min(-15).max(15).step(0.01);
-      this.debugFolder.add(this.mesh.position, "z").name("posz").min(-15).max(15).step(0.01);
+      this.debugFolder.add(this.mesh.position, "y").name("posy").min(-60).max(60).step(0.01);
+      this.debugFolder.add(this.mesh.position, "z").name("posz").min(-60).max(60).step(0.01);
     }
   }
 }

@@ -107,12 +107,12 @@ export default class World {
     this.room = new Room(this.cube);
   }
 
+  public newRoom() {
+    this.room = new Room(this.cube);
+  }
+
   public update() {
     if (this.video) this.video.update();
     if (this.cube) this.camera.instance.lookAt(this.cube.mesh.position);
-  }
-
-  public newRoom() {
-    this.room = new Room(this.cube);
   }
 }

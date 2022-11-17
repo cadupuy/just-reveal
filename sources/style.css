@@ -150,8 +150,8 @@ CUSTOM CURSOR
 
   z-index: 100;
 
-  width: clamp(50px, 6vw, 150px);
-  height: clamp(50px, 6vw, 150px);
+  width: clamp(50px, 6vw, 30px);
+  height: clamp(50px, 6vw, 30px);
   opacity: 0;
 
   transform: scale(0.75);
@@ -250,4 +250,28 @@ BACK ICON
   width: 30px;
 
   margin-right: 0.5rem;
+}
+
+/*
+**********************************************
+**********************************************
+OVERLAY
+**********************************************
+**********************************************
+*/
+
+.overlay {
+  width: 35vw;
+  height: 100vw;
+  position: fixed;
+  transform: translateX(34vw);
+  transition: 1.8s transform cubic-bezier(0.87, 0, 0.13, 1);
+  top: 0;
+  right: 0;
+  background-color: white;
+  z-index: 2;
+}
+
+.overlay.in {
+  transform: translateX(0);
 }

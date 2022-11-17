@@ -18,6 +18,7 @@ export default class Raycast {
   public items: THREE.Mesh[];
   public cube: Cube;
   public arrow: HTMLDivElement;
+  public overlay: HTMLDivElement;
 
   constructor() {
     this.experience = new Experience();
@@ -29,6 +30,7 @@ export default class Raycast {
     this.cursor = document.querySelector("#cursor") as HTMLElement;
     this.currentIntersect = null;
     this.arrow = document.querySelector(".back") as HTMLDivElement;
+    this.overlay = document.querySelector(".overlay") as HTMLDivElement;
 
     this.init();
 
@@ -36,16 +38,14 @@ export default class Raycast {
       if (this.experience.selectedItem) {
         this.bodyElem.style.cursor = "default";
         this.arrow.classList.remove("in");
-
+        this.overlay.classList.remove("in");
         this.camera.initialPosition();
         this.experience.world.cube.initialPosition();
-
         if (this.experience.isSoundActive) {
           this.experience.audio.play();
         }
         return;
       }
-
       if (this.currentIntersect && !this.experience.selectedItem) {
         if (this.experience.world) {
           this.experience.world.room.handleClick(this.currentIntersect);
