@@ -7,7 +7,7 @@ import EventEmitter from "@utils/EventEmitter";
 export default class Resources extends EventEmitter {
   sources: any;
   items: any;
-  toLoad: any;
+  toLoad: number;
   loaded: number;
   progressBar: HTMLDivElement;
   progressFill: HTMLDivElement;
@@ -22,9 +22,9 @@ export default class Resources extends EventEmitter {
     this.items = {};
     this.toLoad = this.sources.length;
     this.loaded = 0;
-    this.progressBar = document.querySelector(".progressBar") as HTMLDivElement;
-    this.progressFill = document.querySelector(".progressFill") as HTMLDivElement;
-    this.button = document.querySelector(".start") as HTMLButtonElement;
+    this.progressBar = document.querySelector(".loader__progressBar") as HTMLDivElement;
+    this.progressFill = document.querySelector(".loader__progressFill") as HTMLDivElement;
+    this.button = document.querySelector(".loader__button") as HTMLButtonElement;
 
     this.setLoaders();
     this.startLoading();

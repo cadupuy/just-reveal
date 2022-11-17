@@ -30,7 +30,7 @@ export default class Video {
     });
   }
 
-  update() {
+  public update() {
     if (this.videoTexture) this.videoTexture.needsUpdate = true;
   }
 }

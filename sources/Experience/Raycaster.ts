@@ -8,17 +8,16 @@ import Cube from "@world/Cube";
 
 export default class Raycast {
   public raycaster: Raycaster;
-  public currentIntersect: any;
-
+  public currentIntersect: THREE.Object3D | null;
   private experience: Experience;
   public scene: THREE.Scene;
   private camera: Camera;
   private mouse: Mouse;
   private bodyElem: HTMLElement;
   private cursor: HTMLElement;
-  public material: any;
-  items: THREE.Mesh[];
-  cube: Cube;
+  public items: THREE.Mesh[];
+  public cube: Cube;
+  public arrow: HTMLDivElement;
 
   constructor() {
     this.experience = new Experience();
@@ -26,17 +25,17 @@ export default class Raycast {
     this.camera = this.experience.camera;
     this.items = this.experience.items;
     this.mouse = this.experience.mouse;
-    // this.isLoading = this.experience.isLoading;
     this.bodyElem = document.querySelector("html,body") as HTMLElement;
     this.cursor = document.querySelector("#cursor") as HTMLElement;
     this.currentIntersect = null;
-    this.material = null;
+    this.arrow = document.querySelector(".back") as HTMLDivElement;
 
     this.init();
 
     window.addEventListener("click", () => {
       if (this.experience.selectedItem) {
         this.bodyElem.style.cursor = "default";
+        this.arrow.classList.remove("in");
 
         this.camera.initialPosition();
         this.experience.world.cube.initialPosition();

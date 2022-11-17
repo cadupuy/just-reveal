@@ -19,27 +19,26 @@ import Sound from "@experience/Sound";
 
 export default class Experience {
   private static instance: Experience;
-  canvas: HTMLCanvasElement | undefined;
-  toto: number;
-  loader: Loader;
-  scene: Scene;
-  camera: Camera;
-  debug: Debug;
-  sizes: Sizes;
-  renderer: Renderer;
-  time: Time;
-  stats: Stats;
-  world: World;
-  resources: Resources;
-  mouse: Mouse;
-  raycast: Raycast;
-  parallax: Parallax;
-  items: THREE.Mesh[];
-  selectedItem: boolean;
-  level: number;
-  isLoading: boolean;
-  audio: Sound;
-  isSoundActive: boolean;
+  public canvas: HTMLCanvasElement | undefined;
+  public loader: Loader;
+  public scene: Scene;
+  public camera: Camera;
+  public debug: Debug;
+  public sizes: Sizes;
+  public renderer: Renderer;
+  public time: Time;
+  public stats: Stats;
+  public world: World;
+  public resources: Resources;
+  public mouse: Mouse;
+  public raycast: Raycast;
+  public parallax: Parallax;
+  public items: THREE.Mesh[];
+  public selectedItem: boolean;
+  public level: number;
+  public isLoading: boolean;
+  public audio: Sound;
+  public isSoundActive: boolean;
 
   constructor(_canvas?: HTMLCanvasElement) {
     // Singleton

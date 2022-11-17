@@ -1,12 +1,12 @@
 export default class Sound {
-  ctx: any;
-  audio: any;
-  audioSource: any;
-  analyser: any;
-  fdata: any;
-  url: any;
-  flag: any;
-  currentTime: number;
+  private audioSource: MediaElementAudioSourceNode;
+  private analyser: AnalyserNode;
+  private fdata: Uint8Array;
+  private url: string;
+  private flag: boolean;
+  public ctx: AudioContext;
+  public audio: HTMLAudioElement;
+  public currentTime: number;
 
   constructor(audioUrl: string) {
     this.ctx;
@@ -18,7 +18,7 @@ export default class Sound {
     this.flag;
   }
 
-  init() {
+  public init() {
     this.ctx = new AudioContext();
     this.audio = new Audio(this.url);
     this.audioSource = this.ctx.createMediaElementSource(this.audio);
@@ -39,17 +39,17 @@ export default class Sound {
     );
   }
 
-  play() {
+  public play() {
     this.audio.play();
     this.flag = true;
   }
 
-  pause() {
+  public pause() {
     this.audio.pause();
     this.flag = false;
   }
 
-  update() {
+  public update() {
     this.analyser.getByteFrequencyData(this.fdata);
   }
 }

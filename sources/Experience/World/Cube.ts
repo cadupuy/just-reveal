@@ -8,12 +8,12 @@ import gsap from "gsap";
 export default class Cube {
   private experience: Experience;
   private scene: THREE.Scene;
-  geometry: THREE.BoxGeometry;
-  material: THREE.MeshBasicMaterial;
-  mesh: THREE.Mesh<THREE.BoxGeometry, THREE.MeshBasicMaterial>;
+  public geometry: THREE.BoxGeometry;
+  public material: THREE.MeshBasicMaterial;
+  public mesh: THREE.Mesh<THREE.BoxGeometry, THREE.MeshBasicMaterial>;
   private debug: Debug;
   private debugFolder: GUI;
-  params: { x: number; y: number; z: number };
+  public params: { x: number; y: number; z: number };
 
   constructor() {
     this.experience = new Experience();
@@ -32,7 +32,7 @@ export default class Cube {
     this.setCube();
   }
 
-  initialPosition() {
+  public initialPosition() {
     gsap.to(this.mesh.position, {
       x: this.params.x,
       y: this.params.y,
@@ -42,7 +42,7 @@ export default class Cube {
     });
   }
 
-  setCube() {
+  public setCube() {
     this.geometry = new THREE.BoxGeometry(1, 1, 1, 1);
 
     if (this.debug.active) {

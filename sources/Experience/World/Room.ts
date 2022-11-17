@@ -16,22 +16,21 @@ export default class Room {
 
   public geometry: THREE.BoxGeometry;
   public material: THREE.MeshNormalMaterial;
-  public mesh: THREE.Mesh<THREE.BoxGeometry, THREE.MeshNormalMaterial>;
-  resources: any;
-  resource2020: any;
-  resource2021: any;
-  resource2022: any;
-  model: any;
-  items: THREE.Mesh[];
-  camera: Camera;
-  bodyElem: HTMLElement;
-  parallax: Parallax;
-  video: Video;
-  videoTexture: THREE.VideoTexture;
-  screen: THREE.Mesh | null;
-  cube: Cube;
-  audio: Sound;
-  level: number;
+  public resources: any;
+  public resource2020: any;
+  public resource2021: any;
+  public resource2022: any;
+  public model: any;
+  public items: THREE.Mesh[];
+  public camera: Camera;
+  public parallax: Parallax;
+  public video: Video;
+  public videoTexture: THREE.VideoTexture;
+  public screen: THREE.Mesh | null;
+  public cube: Cube;
+  public audio: Sound;
+  public level: number;
+  public arrow: HTMLDivElement;
 
   constructor(cube: Cube, level: number = 1) {
     this.experience = new Experience();
@@ -43,12 +42,12 @@ export default class Room {
     this.resource2022 = this.resources.items.desk2022;
     this.items = this.experience.items;
     this.parallax = this.experience.parallax;
-    this.bodyElem = document.querySelector("html,body") as HTMLElement;
     this.video = new Video();
     this.audio = this.experience.audio;
     this.cube = cube;
     this.screen;
     this.level = level;
+    this.arrow = document.querySelector(".back") as HTMLDivElement;
 
     this.setRoom();
   }
@@ -95,7 +94,7 @@ export default class Room {
     this.scene.add(this.model);
   }
 
-  public handleClick(el: THREE.Mesh) {
+  public handleClick(el: THREE.Object3D) {
     // this.experience.parallax.params.active = false;
 
     if (el.name.includes("globe")) this.handleGlobe();
@@ -107,11 +106,13 @@ export default class Room {
   private handleScreen() {
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
+    this.arrow.classList.add("in");
 
     this.video.videoElem.play();
 
     if (this.experience.isSoundActive) {
       this.audio.pause();
+      this.experience.isSoundActive = false;
     }
 
     gsap.to(this.cube.mesh.position, {
@@ -153,6 +154,7 @@ export default class Room {
   private handleGlobe() {
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
+    this.arrow.classList.add("in");
 
     // el.rotation.z = 4;
 

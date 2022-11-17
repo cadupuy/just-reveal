@@ -1,4 +1,3 @@
-// import * as THREE from "three";
 import gsap from "gsap";
 
 import Experience from "@experience/Experience";
@@ -24,8 +23,8 @@ export default class World {
   public cube: Cube;
   public camera: Camera;
   public parallax: Parallax;
-  resources: Resources;
-  audio: Sound;
+  public resources: Resources;
+  public audio: Sound;
 
   constructor() {
     this.experience = new Experience();
@@ -36,7 +35,7 @@ export default class World {
     this.audio = this.experience.audio;
 
     this.loaderDiv = document.querySelector(".loader") as HTMLDivElement;
-    this.button = document.querySelector(".start") as HTMLButtonElement;
+    this.button = document.querySelector(".loader__button") as HTMLButtonElement;
 
     this.button.addEventListener("click", () => {
       this.setCube();

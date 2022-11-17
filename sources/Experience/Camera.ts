@@ -21,7 +21,7 @@ export default class Camera {
   private parallax: Parallax;
   public controls: OrbitControls;
   public canvas: HTMLElement | undefined;
-  params: { x: number; y: number; z: number };
+  public params: { x: number; y: number; z: number };
 
   constructor() {
     this.experience = new Experience();
