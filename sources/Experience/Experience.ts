@@ -171,6 +171,7 @@ export default class Experience {
 
       this.world.newRoom();
     }, 900);
+
     this.loader.animExit();
   }
 

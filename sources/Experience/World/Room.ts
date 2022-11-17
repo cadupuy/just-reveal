@@ -104,6 +104,8 @@ export default class Room {
       }
     });
 
+    console.log("après", this.items);
+
     this.model.scale.set(3, 3, 3);
     this.model.position.set(0, 0, 0);
     this.scene.add(this.model);

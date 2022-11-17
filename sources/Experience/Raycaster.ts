@@ -15,7 +15,6 @@ export default class Raycast {
   private mouse: Mouse;
   private bodyElem: HTMLElement;
   private cursor: HTMLElement;
-  public items: THREE.Mesh[];
   public cube: Cube;
   public arrow: HTMLDivElement;
   public overlay: HTMLDivElement;
@@ -24,7 +23,6 @@ export default class Raycast {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
-    this.items = this.experience.items;
     this.mouse = this.experience.mouse;
     this.bodyElem = document.querySelector("html,body") as HTMLElement;
     this.cursor = document.querySelector("#cursor") as HTMLElement;
@@ -66,8 +64,7 @@ export default class Raycast {
     }
 
     this.raycaster.setFromCamera(this.mouse.instance, this.camera.instance);
-
-    const intersects = this.raycaster.intersectObjects(this.items);
+    const intersects = this.raycaster.intersectObjects(this.experience.items);
 
     if (intersects.length > 0) {
       this.bodyElem.style.cursor = "pointer";
