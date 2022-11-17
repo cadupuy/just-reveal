@@ -9,7 +9,12 @@
   </head>
   <body>
     <div class="overlay">
-      <div class="overlay__wrapper"></div>
+      <div class="overlay__wrapper">
+        <div>
+          <img class="overlay__img1" src="/assets/imgs/cafe/info_1.png" alt="" />
+          <img class="overlay__img2" src="/assets/imgs/cafe/info_2.png" alt="" />
+        </div>
+      </div>
     </div>
 
     <div class="backWrapper">
@@ -33,8 +38,16 @@
     </div>
     <canvas class="webgl"></canvas>
 
-    <video id="video" crossorigin="anonymous" playsinline>
-      <source src="assets/video/intro.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+    <video id="video1" crossorigin="anonymous" playsinline style="display: none">
+      <source src="assets/video/intro1.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+    </video>
+
+    <video id="video2" crossorigin="anonymous" playsinline style="display: none">
+      <source src="assets/video/intro2.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+    </video>
+
+    <video id="video3" crossorigin="anonymous" playsinline style="display: none">
+      <source src="assets/video/intro3.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
     </video>
 
     <div id="cursorWrapper">

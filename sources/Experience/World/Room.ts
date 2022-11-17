@@ -58,7 +58,7 @@ export default class Room {
     console.log("je passe ici");
 
     if (this.experience.level === 1) {
-      this.model = this.resource2021.scene;
+      this.model = this.resource2020.scene;
     } else if (this.experience.level === 2) {
       this.model = this.resource2021.scene;
     } else if (this.experience.level === 3) {
@@ -253,7 +253,11 @@ export default class Room {
   }
 
   private handleLampe() {
+    this.video.videoElem.pause();
     this.experience.switchLevel();
+    setTimeout(() => {
+      this.video.videoElem.currentTime = 0;
+    }, 500);
   }
 
   private handleGlobe() {

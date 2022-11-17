@@ -1,17 +1,27 @@
 import * as THREE from "three";
+import Experience from "@experience/Experience";
 
 export default class Video {
   public videoTexture: THREE.Texture;
   public videoElem: HTMLVideoElement;
   public movieScreen: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
   public movieMaterial: THREE.MeshBasicMaterial;
+  private experience: Experience;
 
   constructor() {
+    this.experience = new Experience();
+
     this.setVideo();
   }
 
   private setVideo() {
-    this.videoElem = document.querySelector("#video") as HTMLVideoElement;
+    if (this.experience.level === 1) {
+      this.videoElem = document.querySelector("#video1") as HTMLVideoElement;
+    } else if (this.experience.level === 2) {
+      this.videoElem = document.querySelector("#video2") as HTMLVideoElement;
+    } else {
+      this.videoElem = document.querySelector("#video3") as HTMLVideoElement;
+    }
 
     // this.video.play();
 

@@ -39,6 +39,7 @@ export default class Experience {
   public isLoading: boolean;
   public audio: Sound;
   public isSoundActive: boolean;
+  curvid: any;
 
   constructor(_canvas?: HTMLCanvasElement) {
     // Singleton
@@ -167,6 +168,7 @@ export default class Experience {
     this.loader.animEnter();
     setTimeout(() => {
       this.destroy();
+
       this.world.newRoom();
     }, 900);
     this.loader.animExit();
