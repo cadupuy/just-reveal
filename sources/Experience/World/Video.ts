@@ -35,7 +35,7 @@ export default class Video {
 
     this.movieMaterial = new THREE.MeshBasicMaterial({
       map: this.videoTexture,
-      side: THREE.FrontSide,
+      side: THREE.DoubleSide,
       toneMapped: false,
     });
   }

@@ -6,6 +6,12 @@ export default [
   },
 
   {
+    name: "bake2020",
+    type: "texture",
+    path: "models/room/Bake_2020_1_c.jpg",
+  },
+
+  {
     name: "desk2021",
     type: "gltfModel",
     path: "models/room/desk2021.glb",

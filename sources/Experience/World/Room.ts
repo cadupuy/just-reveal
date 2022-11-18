@@ -8,7 +8,7 @@ import Parallax from "@experience/Utils/Parallax";
 import Video from "@world/Video";
 import Cube from "@world/Cube";
 import Sound from "@experience/Sound";
-import { MeshNormalMaterial } from "three";
+import { MeshNormalMaterial, Texture } from "three";
 
 export default class Room {
   private experience: Experience;
@@ -33,6 +33,7 @@ export default class Room {
   public arrow: HTMLDivElement;
   public overlay: HTMLDivElement;
   public overlays: NodeListOf<HTMLDivElement>;
+  public bake2020: Texture;
 
   constructor(cube: Cube, level: number = 1) {
     this.experience = new Experience();
@@ -40,6 +41,7 @@ export default class Room {
     this.camera = this.experience.camera;
     this.resources = this.experience.resources;
     this.resource2020 = this.resources.items.desk2020;
+    this.bake2020 = this.resources.items.bake2020;
     this.resource2021 = this.resources.items.desk2021;
     this.resource2022 = this.resources.items.desk2022;
     this.items = this.experience.items;
@@ -47,7 +49,6 @@ export default class Room {
     this.video = new Video();
     this.audio = this.experience.audio;
     this.cube = cube;
-    this.screen;
     this.level = level;
     this.overlays = document.querySelectorAll(".overlay__images") as NodeListOf<HTMLDivElement>;
 
@@ -66,14 +67,14 @@ export default class Room {
       this.model = this.resource2022.scene;
     }
 
+    this.bake2020.flipY = false;
+
     console.log(this.model);
 
+    const bakedMaterial = new THREE.MeshBasicMaterial({ map: this.bake2020 });
+
     this.model.traverse((child: THREE.Mesh) => {
-      if (child.name === "ecran_video") {
-        this.screen = child;
-        child.material = this.video.movieMaterial;
-        this.items.push(child);
-      }
+      child.material = bakedMaterial;
 
       if (child.name === "lampe") {
         this.items.push(child);
@@ -101,10 +102,15 @@ export default class Room {
       }
 
       if (child.name === "passion") {
-        -this.experience.items.push(child);
+        this.experience.items.push(child);
       }
 
       if (child.name === "speaker") {
+        this.items.push(child);
+      }
+
+      if (child.name == "true_screen") {
+        child.material = this.video.movieMaterial;
         this.items.push(child);
       }
     });
@@ -122,7 +128,7 @@ export default class Room {
     });
 
     if (el.name.includes("globe")) this.handleGlobe();
-    if (el.name.includes("ecran_video")) this.handleScreen();
+    if (el.name.includes("true_screen")) this.handleScreen();
     if (el.name.includes("lampe")) this.handleLampe();
     if (el.name.includes("speaker")) this.handleAudio();
     if (el.name === "nintendo") this.handleNintendo();

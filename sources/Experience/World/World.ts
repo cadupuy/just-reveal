@@ -71,7 +71,7 @@ export default class World {
         {
           x: -0.15,
           y: 3.5,
-          z: -0.6,
+          z: 0,
         },
         {
           duration: 3,
