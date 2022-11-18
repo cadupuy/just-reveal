@@ -45,10 +45,10 @@ export default class Room {
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
     this.resources = this.experience.resources;
-    this.resource2020 = this.resources.items.desk2020;
     this.bake2020 = this.resources.items.bake2020;
     this.bake2021 = this.resources.items.bake2021;
-    this.bake2022 = this.resources.items.bake2020;
+    this.bake2022 = this.resources.items.bake2022;
+    this.resource2020 = this.resources.items.desk2020;
     this.resource2021 = this.resources.items.desk2021;
     this.resource2022 = this.resources.items.desk2022;
     this.items = this.experience.items;
