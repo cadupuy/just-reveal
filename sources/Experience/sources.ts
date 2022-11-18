@@ -12,6 +12,12 @@ export default [
   },
 
   {
+    name: "bake2021",
+    type: "texture",
+    path: "models/room/bake2021.jpg",
+  },
+
+  {
     name: "desk2021",
     type: "gltfModel",
     path: "models/room/desk2021.glb",

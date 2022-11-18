@@ -259,6 +259,7 @@ BACK ICON
   z-index: 2;
   display: flex;
   align-items: center;
+  display: none;
 }
 
 .back {
@@ -314,7 +315,7 @@ OVERLAY
   width: 100%;
   height: 100%;
   cursor: default;
-  background-image: url("assets/imgs/background.png");
+  background-image: url("/assets/imgs/background.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

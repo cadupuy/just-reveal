@@ -65,7 +65,7 @@ export default class Raycast {
     }
 
     this.raycaster.setFromCamera(this.mouse.instance, this.camera.instance);
-    const intersects = this.raycaster.intersectObjects(this.experience.items);
+    const intersects = this.raycaster.intersectObjects(this.experience.items, true);
 
     if (intersects.length > 0) {
       this.bodyElem.style.cursor = "pointer";

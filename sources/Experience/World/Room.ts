@@ -8,7 +8,7 @@ import Parallax from "@experience/Utils/Parallax";
 import Video from "@world/Video";
 import Cube from "@world/Cube";
 import Sound from "@experience/Sound";
-import { MeshNormalMaterial, Texture } from "three";
+import { Texture } from "three";
 
 export default class Room {
   private experience: Experience;
@@ -34,6 +34,10 @@ export default class Room {
   public overlay: HTMLDivElement;
   public overlays: NodeListOf<HTMLDivElement>;
   public bake2020: Texture;
+  public bake2021: Texture;
+  public bake2022: Texture;
+  public texture: Texture;
+  public audioLamp: any;
 
   constructor(cube: Cube, level: number = 1) {
     this.experience = new Experience();
@@ -42,6 +46,8 @@ export default class Room {
     this.resources = this.experience.resources;
     this.resource2020 = this.resources.items.desk2020;
     this.bake2020 = this.resources.items.bake2020;
+    this.bake2021 = this.resources.items.bake2021;
+    this.bake2022 = this.resources.items.bake2020;
     this.resource2021 = this.resources.items.desk2021;
     this.resource2022 = this.resources.items.desk2022;
     this.items = this.experience.items;
@@ -54,6 +60,7 @@ export default class Room {
 
     this.arrow = document.querySelector(".back") as HTMLDivElement;
     this.overlay = document.querySelector(".overlay") as HTMLDivElement;
+    this.audioLamp = new Audio("/assets/music/lamp.mp3");
 
     this.setRoom();
   }
@@ -61,20 +68,24 @@ export default class Room {
   private setRoom() {
     if (this.experience.level === 1) {
       this.model = this.resource2020.scene;
+      this.texture = this.bake2020;
+      this.texture.flipY = false;
     } else if (this.experience.level === 2) {
       this.model = this.resource2021.scene;
+      this.texture = this.bake2021;
+      this.texture.flipY = false;
     } else if (this.experience.level === 3) {
       this.model = this.resource2022.scene;
+      this.texture = this.bake2022;
+      this.texture.flipY = false;
     }
 
-    this.bake2020.flipY = false;
-
-    console.log(this.model);
-
-    const bakedMaterial = new THREE.MeshBasicMaterial({ map: this.bake2020 });
+    const bakedMaterial = new THREE.MeshBasicMaterial({ map: this.texture });
 
     this.model.traverse((child: THREE.Mesh) => {
-      child.material = bakedMaterial;
+      if (child.name !== "true_screen") {
+        child.material = bakedMaterial;
+      }
 
       if (child.name === "lampe") {
         this.items.push(child);
@@ -93,7 +104,6 @@ export default class Room {
       }
 
       if (child.name === "globe") {
-        child.material = new MeshNormalMaterial();
         this.experience.items.push(child);
       }
 
@@ -101,7 +111,7 @@ export default class Room {
         this.experience.items.push(child);
       }
 
-      if (child.name === "passion") {
+      if (child.name === "crayon") {
         this.experience.items.push(child);
       }
 
@@ -115,6 +125,8 @@ export default class Room {
       }
     });
 
+    console.log(this.model);
+
     this.model.scale.set(3, 3, 3);
     this.model.position.set(0, 0, 0);
     this.scene.add(this.model);
@@ -127,13 +139,15 @@ export default class Room {
       el.style.display = "none";
     });
 
+    console.log(el);
+
     if (el.name.includes("globe")) this.handleGlobe();
     if (el.name.includes("true_screen")) this.handleScreen();
     if (el.name.includes("lampe")) this.handleLampe();
     if (el.name.includes("speaker")) this.handleAudio();
     if (el.name === "nintendo") this.handleNintendo();
     if (el.name === "medecine") this.handleMedecine();
-    if (el.name === "passion") this.handlePassion();
+    if (el.name === "crayon") this.handlePassion();
     if (el.name === "Mug") this.handleMug();
   }
 
@@ -168,6 +182,8 @@ export default class Room {
   }
 
   private handleMedecine() {
+    console.log("medecine");
+
     document.querySelector<HTMLDivElement>(`[data-name="medecine"]`)!.style.display = "block";
     this.anim("nintendo");
 
@@ -302,6 +318,7 @@ export default class Room {
   }
 
   private handleLampe() {
+    this.audioLamp.play();
     this.video.videoElem.pause();
     this.experience.switchLevel();
     setTimeout(() => {
@@ -310,6 +327,14 @@ export default class Room {
   }
 
   private handleGlobe() {
+    if (this.experience.level === 1) {
+      document.querySelector<HTMLDivElement>(`[data-name="globe_1"]`)!.style.display = "block";
+    } else if (this.experience.level === 2) {
+      document.querySelector<HTMLDivElement>(`[data-name="globe_2"]`)!.style.display = "block";
+    } else {
+      document.querySelector<HTMLDivElement>(`[data-name="globe_23]`)!.style.display = "block";
+    }
+
     this.anim("nintendo");
 
     this.overlay.classList.add("in");

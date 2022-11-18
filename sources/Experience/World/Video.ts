@@ -30,8 +30,10 @@ export default class Video {
     this.videoTexture.minFilter = THREE.LinearFilter;
     this.videoTexture.magFilter = THREE.LinearFilter;
 
-    this.videoTexture.wrapS = THREE.RepeatWrapping;
-    this.videoTexture.repeat.x = -1;
+    this.videoTexture.flipY = false;
+
+    // this.videoTexture.wrapS = THREE.RepeatWrapping;
+    // this.videoTexture.repeat.x = -1;
 
     this.movieMaterial = new THREE.MeshBasicMaterial({
       map: this.videoTexture,
