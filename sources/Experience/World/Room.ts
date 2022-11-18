@@ -133,6 +133,7 @@ export default class Room {
 
   private handleMug() {
     document.querySelector<HTMLDivElement>(`[data-name="cafe"]`)!.style.display = "block";
+    this.anim("nintendo");
 
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
@@ -143,7 +144,7 @@ export default class Room {
       x: -1.27,
       y: 2.3,
       z: 0.83,
-      duration: 2,
+      duration: 1.25,
       ease: "power4.easeIn",
       onComplete: () => {
         // this.parallax.params.intensity = 0.0001;
@@ -152,7 +153,7 @@ export default class Room {
     });
 
     gsap.to(this.camera.instance.position, {
-      duration: 1.5,
+      duration: 1.25,
       x: -1.06,
       y: 4.1,
       z: 1.15,
@@ -162,6 +163,7 @@ export default class Room {
 
   private handleMedecine() {
     document.querySelector<HTMLDivElement>(`[data-name="medecine"]`)!.style.display = "block";
+    this.anim("nintendo");
 
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
@@ -225,8 +227,7 @@ export default class Room {
 
   private handlePassion() {
     document.querySelector<HTMLDivElement>(`[data-name="passion"]`)!.style.display = "block";
-
-    this.overlay.classList.add("in");
+    this.anim("nintendo");
 
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
@@ -256,6 +257,7 @@ export default class Room {
 
   private handleNintendo() {
     document.querySelector<HTMLDivElement>(`[data-name="nintendo"]`)!.style.display = "block";
+    this.anim("nintendo");
 
     this.parallax.params.active = false;
     this.experience.selectedItem = true;
@@ -302,6 +304,8 @@ export default class Room {
   }
 
   private handleGlobe() {
+    this.anim("nintendo");
+
     this.overlay.classList.add("in");
 
     this.parallax.params.active = false;
@@ -329,5 +333,37 @@ export default class Room {
       z: 1.48,
       ease: "power4.easeIn",
     });
+  }
+
+  private anim(name: string) {
+    // let elem = document.querySelector<HTMLDivElement>(`[data-name="${name}"]`)!;
+
+    console.log(name);
+
+    gsap.fromTo(
+      ".overlay__img1",
+      {
+        rotation: -10,
+      },
+      {
+        rotation: 1,
+        duration: 0.9,
+        delay: 0.65,
+        ease: "back.out(2)",
+      }
+    );
+
+    gsap.fromTo(
+      ".overlay__img2",
+      {
+        rotation: -15,
+      },
+      {
+        rotation: 0,
+        duration: 0.95,
+        delay: 0.85,
+        ease: "back.out(2)",
+      }
+    );
   }
 }
