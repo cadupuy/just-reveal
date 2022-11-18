@@ -62,7 +62,7 @@ export default class Room {
     this.arrow = document.querySelector(".back") as HTMLDivElement;
     this.overlay = document.querySelector(".overlay") as HTMLDivElement;
     this.audioLamp = new Audio("/assets/music/lamp.mp3");
-    this.audioEnceinte = new Audio("/assets/music/enceinte.mp3");
+    this.audioEnceinte = new Audio("/assets/music/speaker.mp3");
 
     this.setRoom();
   }
@@ -140,8 +140,6 @@ export default class Room {
     this.overlays.forEach((el) => {
       el.style.display = "none";
     });
-
-    console.log(el);
 
     if (el.name.includes("globe")) this.handleGlobe();
     if (el.name.includes("true_screen")) this.handleScreen();
@@ -336,7 +334,7 @@ export default class Room {
     } else if (this.experience.level === 2) {
       document.querySelector<HTMLDivElement>(`[data-name="globe_2"]`)!.style.display = "block";
     } else {
-      document.querySelector<HTMLDivElement>(`[data-name="globe_23]`)!.style.display = "block";
+      document.querySelector<HTMLDivElement>(`[data-name="globe_3"]`)!.style.display = "block";
     }
 
     this.anim("nintendo");

@@ -8,7 +8,7 @@ export default [
   {
     name: "bake2020",
     type: "texture",
-    path: "models/room/Bake_2020_1_c.jpg",
+    path: "models/room/bake2020.jpg",
   },
 
   {
