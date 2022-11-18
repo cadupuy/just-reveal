@@ -347,7 +347,7 @@ export default class Room {
       },
       {
         rotation: 1,
-        duration: 0.9,
+        duration: 1,
         delay: 0.65,
         ease: "back.out(2)",
       }
@@ -360,7 +360,7 @@ export default class Room {
       },
       {
         rotation: 0,
-        duration: 0.95,
+        duration: 1.05,
         delay: 0.85,
         ease: "back.out(2)",
       }
