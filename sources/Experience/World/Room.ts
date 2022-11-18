@@ -38,6 +38,7 @@ export default class Room {
   public bake2022: Texture;
   public texture: Texture;
   public audioLamp: any;
+  public audioEnceinte: any;
 
   constructor(cube: Cube, level: number = 1) {
     this.experience = new Experience();
@@ -61,6 +62,7 @@ export default class Room {
     this.arrow = document.querySelector(".back") as HTMLDivElement;
     this.overlay = document.querySelector(".overlay") as HTMLDivElement;
     this.audioLamp = new Audio("/assets/music/lamp.mp3");
+    this.audioEnceinte = new Audio("/assets/music/enceinte.mp3");
 
     this.setRoom();
   }
@@ -308,6 +310,8 @@ export default class Room {
   }
 
   private handleAudio() {
+    this.audioEnceinte.play();
+
     if (!this.experience.isSoundActive) {
       this.audio.play();
       this.experience.isSoundActive = true;
