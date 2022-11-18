@@ -33,18 +33,18 @@ export default class Raycast {
     this.init();
 
     window.addEventListener("click", () => {
-      // if (this.experience.selectedItem) {
-      //   this.bodyElem.style.cursor = "default";
-      //   this.arrow.classList.remove("in");
-      //   this.overlay.classList.remove("in");
+      if (this.experience.selectedItem) {
+        this.bodyElem.style.cursor = "default";
+        this.arrow.classList.remove("in");
+        this.overlay.classList.remove("in");
 
-      //   this.camera.initialPosition();
-      //   this.experience.world.cube.initialPosition();
-      //   if (this.experience.isSoundActive) {
-      //     this.experience.audio.play();
-      //   }
-      //   return;
-      // }
+        this.camera.initialPosition();
+        this.experience.world.cube.initialPosition();
+        if (this.experience.isSoundActive) {
+          this.experience.audio.play();
+        }
+        return;
+      }
       if (this.currentIntersect && !this.experience.selectedItem) {
         if (this.experience.world) {
           this.experience.world.room.handleClick(this.currentIntersect);

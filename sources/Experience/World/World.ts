@@ -55,7 +55,7 @@ export default class World {
       const tl = gsap.timeline({
         onComplete: () => {
           this.experience.isLoading = false;
-          // this.parallax.params.active = true;
+          this.parallax.params.active = true;
         },
       });
 
