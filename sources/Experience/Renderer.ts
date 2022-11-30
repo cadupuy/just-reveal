@@ -54,7 +54,7 @@ export default class Renderer {
     this.instance.outputEncoding = sRGBEncoding;
     this.instance.toneMapping = NoToneMapping;
     this.instance.toneMappingExposure = 1;
-    this.instance.setClearColor("#555555", 1);
+    this.instance.setClearColor("#FFFFFF", 1);
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(Math.min(this.sizes.pixelRatio, 2));
 

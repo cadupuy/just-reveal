@@ -85,7 +85,7 @@ export default class Room {
     const bakedMaterial = new THREE.MeshBasicMaterial({ map: this.texture });
 
     this.model.traverse((child: THREE.Mesh) => {
-      if (child.name !== "true_screen") {
+      if (child.name !== "Plane001") {
         child.material = bakedMaterial;
       }
 
@@ -121,7 +121,7 @@ export default class Room {
         this.items.push(child);
       }
 
-      if (child.name == "true_screen") {
+      if (child.name == "Plane001") {
         child.material = this.video.movieMaterial;
         this.items.push(child);
       }
@@ -142,7 +142,7 @@ export default class Room {
     });
 
     if (el.name.includes("globe")) this.handleGlobe();
-    if (el.name.includes("true_screen")) this.handleScreen();
+    if (el.name.includes("Plane001")) this.handleScreen();
     if (el.name.includes("lampe")) this.handleLampe();
     if (el.name.includes("speaker")) this.handleAudio();
     if (el.name === "nintendo") this.handleNintendo();
